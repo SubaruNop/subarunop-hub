@@ -80,12 +80,6 @@
             text-shadow: 0 0 6px rgba(0, 255, 204, 0.5);
         }
 
-        .panel.destacado-nuevo {
-            border-color: #ff00ff !important;
-            box-shadow: 0 0 30px rgba(255, 0, 255, 0.8) !important;
-            transform: scale(1.02);
-        }
-
         input.cyber-input, select.cyber-input {
             width: 100%; padding: 10px; background: rgba(0, 5, 15, 0.9); border: 1px solid #00ffcc;
             border-radius: 8px; color: #00ffcc; font-family: 'Rajdhani', sans-serif; font-size: 11px;
@@ -109,22 +103,6 @@
             display: inline-flex; padding: 4px 8px; border-radius: 4px; font-size: 7px; 
             font-family: 'Orbitron', sans-serif; background: rgba(255, 0, 255, 0.15); color: #ff00ff; border: 1px solid #ff00ff;
         }
-
-        #modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(2, 4, 12, 0.85); backdrop-filter: blur(8px);
-            z-index: 9999; display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-        }
-        #modal-overlay.activo { opacity: 1; pointer-events: auto; }
-        .modal-box {
-            background: rgba(10, 15, 30, 0.95); border: 2px solid #00ffcc; border-radius: 16px;
-            padding: 20px; width: 90%; max-width: 400px; text-align: center;
-            box-shadow: 0 0 35px rgba(0, 255, 204, 0.5); transform: scale(0.8); transition: transform 0.3s ease;
-        }
-        #modal-overlay.activo .modal-box { transform: scale(1); }
-        .modal-box h2 { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 14px; margin-bottom: 8px; text-shadow: 0 0 10px #00ffcc; }
-        .modal-box p { font-size: 10px; color: #8be9fd; margin-bottom: 14px; }
     </style>
 </head>
 <body>
@@ -132,21 +110,13 @@
     <canvas id="bg-canvas"></canvas>
     <div class="scanline-overlay"></div>
 
-    <div id="modal-overlay">
-        <div class="modal-box">
-            <h2 id="modal-titulo">⚡ ACTUALIZACIÓN APLICADA</h2>
-            <p id="modal-texto">El módulo ha sido integrado al núcleo con backup activo.</p>
-            <button class="cyber-btn" onclick="irACorroborarActualizacion()">🔍 Ir a corroborar actualización</button>
-        </div>
-    </div>
-
     <div class="container">
         <header>
             <div>
                 <h1>⚡ SUBARUNOP LIVE SYNC CORE</h1>
                 <p>Admin: Ángel Barreto | Autonomous AI Engine</p>
             </div>
-            <div class="platform-badge">🔴 MERODEO EN VIVO</div>
+            <div class="platform-badge">🔴 NÚCLEO SINCRONIZADO</div>
         </header>
 
         <div class="nav-tabs">
@@ -192,29 +162,34 @@
 
         <div id="view-bot" class="view-section">
             <div class="panel">
-                <h3>🤖 Bot Autónomo & Merodeo en Tiempo Real</h3>
-                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">El bot escanea el entorno de forma continua de manera autónoma:</p>
+                <h3>🤖 Bot Autónomo & Núcleo Sincronizado</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Todos los sistemas principales se encuentran operativos y sincronizados:</p>
                 
-                <div style="display: grid; grid-template-columns: 1fr; gap: 6px; margin-bottom: 8px;">
-                    <button class="cyber-btn" style="background: linear-gradient(135deg, #ff0055, #ff00ff); color: #fff;" onclick="reiniciarBackup()">🔄 Restablecer Backup del Núcleo</button>
-                </div>
-
-                <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 130px; overflow-y: auto; margin-top: 6px; font-family: 'Courier New', monospace;">
-                    [Subaru AI v5.1]: Motor autónomo y respaldo en vivo inicializado...
+                <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 100px; overflow-y: auto; font-family: 'Courier New', monospace;">
+                    [Subaru AI v5.2]: Sincronización global PC y Celular establecida con éxito...
                 </div>
             </div>
 
-            <!-- Zona de Propuestas en Tiempo Real -->
-            <div id="propuestas-zone"></div>
-
-            <!-- Zona de Módulos Activos (Resguardados por Backup) -->
+            <!-- Zona de Módulos Activos (Sincronizados Globalmente) -->
             <div id="dinamic-modules-zone">
-                <h4 style="font-family:'Orbitron'; font-size:10px; margin-bottom:8px; color:#fff;">🧬 Módulos Activos (Backup Protegido):</h4>
+                <h4 style="font-family:'Orbitron'; font-size:10px; margin-bottom:8px; color:#fff;">🧬 Módulos Activos en el Sistema:</h4>
                 <div class="panel" style="border-color: #00ffcc; margin-bottom: 6px;">
                     <h3 style="color: #00ffcc; font-size:10px;">💬 Chat Unificado (Kick & TikTok)</h3>
                 </div>
                 <div class="panel" style="border-color: #00ffcc; margin-bottom: 6px;">
                     <h3 style="color: #00ffcc; font-size:10px;">⚡ Alertas Mercado Pago QR</h3>
+                </div>
+                <div class="panel" style="border-color: #00ffcc; margin-bottom: 6px;">
+                    <h3 style="color: #00ffcc; font-size:10px;">📊 Analíticas de Audiencia Activas</h3>
+                    <p style="font-size: 8px; color: #fff;">Monitoreando picos de espectadores y retención cross-stream.</p>
+                </div>
+                <div class="panel" style="border-color: #ff00ff; margin-bottom: 6px;">
+                    <h3 style="color: #ff00ff; font-size:10px;">🛡️ Moderación Anti-Spam Activa</h3>
+                    <p style="font-size: 8px; color: #fff;">Filtro de IA operando y bloqueando enlaces maliciosos.</p>
+                </div>
+                <div class="panel" style="border-color: #00ffcc; margin-bottom: 6px;">
+                    <h3 style="color: #00ffcc; font-size:10px;">🎯 Barra de Metas en Vivo</h3>
+                    <p style="font-size: 8px; color: #fff;">Progreso de donaciones y metas sincronizado con la tesorería.</p>
                 </div>
             </div>
         </div>
@@ -261,141 +236,6 @@
             requestAnimationFrame(drawParticles);
         }
         drawParticles();
-
-        const bancoNuevasFunciones = [
-            {
-                id: 3,
-                titulo: "📊 Módulo: Gráficos de Audiencia en Tiempo Real",
-                desc: "Analíticas de retención y picos de espectadores detectados por merodeo.",
-                htmlId: "modulo-graficos",
-                html: `<div id="modulo-graficos" class="panel" style="border-color: #00ffcc; margin-bottom: 6px;"><h3 style="color: #00ffcc; font-size:10px;">📊 Analíticas de Audiencia Activas</h3><p style="font-size: 8px; color: #fff;">Monitoreando picos de espectadores y retención cross-stream.</p></div>`
-            },
-            {
-                id: 4,
-                titulo: "🛡️ Módulo: Moderación Anti-Spam Automatizada",
-                desc: "Filtro inteligente de bots y palabras clave detectado por merodeo.",
-                htmlId: "modulo-spam",
-                html: `<div id="modulo-spam" class="panel" style="border-color: #ff00ff; margin-bottom: 6px;"><h3 style="color: #ff00ff; font-size:10px;">🛡️ Moderación Anti-Spam Activa</h3><p style="font-size: 8px; color: #fff;">Filtro de IA operando y bloqueando enlaces maliciosos.</p></div>`
-            },
-            {
-                id: 5,
-                titulo: "🎯 Módulo: Widget de Metas de Suscriptores",
-                desc: "Barra de progreso dinámica para metas de stream detectada por merodeo.",
-                htmlId: "modulo-metas",
-                html: `<div id="modulo-metas" class="panel" style="border-color: #00ffcc; margin-bottom: 6px;"><h3 style="color: #00ffcc; font-size:10px;">🎯 Barra de Metas en Vivo</h3><p style="font-size: 8px; color: #fff;">Progreso de donaciones y metas sincronizado con la tesorería.</p></div>`
-            }
-        ];
-
-        let indiceFuncionActual = parseInt(localStorage.getItem('subaru_indice_auto') || '0');
-        let ultimoModuloId = localStorage.getItem('subaru_ultimoid_auto') || "";
-
-        window.addEventListener('DOMContentLoaded', () => {
-            let backupModulos = localStorage.getItem('subaru_backup_modulos');
-            if (backupModulos) {
-                document.getElementById('dinamic-modules-zone').innerHTML = backupModulos;
-            }
-            let propuestaPendiente = localStorage.getItem('subaru_propuesta_html');
-            if (propuestaPendiente) {
-                document.getElementById('propuestas-zone').innerHTML = propuestaPendiente;
-            }
-            iniciarMerodeoAutonomo();
-        });
-
-        function iniciarMerodeoAutonomo() {
-            let log = document.getElementById('consola-log');
-            log.innerHTML += `<br><span style="color:#ff00ff;">[Merodeo]:</span> Escáner en tiempo real activo de fondo...`;
-            log.scrollTop = log.scrollHeight;
-
-            setInterval(() => {
-                let propuestas = document.getElementById('propuestas-zone');
-                if (propuestas.innerHTML.trim() === "" && indiceFuncionActual < bancoNuevasFunciones.length) {
-                    let funcionDetectada = bancoNuevasFunciones[indiceFuncionActual];
-                    
-                    log.innerHTML += `<br><span style="color:#00ffcc;">[Detectado]:</span> ${funcionDetectada.titulo} encontrado.`;
-                    log.scrollTop = log.scrollHeight;
-
-                    let htmlPropuesta = `
-                        <div class="panel" id="propuesta-${funcionDetectada.id}" style="border-color: #ff00ff; background: rgba(20, 5, 25, 0.9);">
-                            <h3 style="color: #ff00ff;">⚡ Propuesta en Tiempo Real: ${funcionDetectada.titulo}</h3>
-                            <p style="font-size: 9px; color: #fff; margin-bottom: 8px;">${funcionDetectada.desc}</p>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                                <button class="cyber-btn" style="background: #00ffcc; color:#000;" onclick="confirmarFuncion(${funcionDetectada.id})">✅ Confirmar & Integrar</button>
-                                <button class="cyber-btn" style="background: #ff0055; color:#fff;" onclick="descartarFuncion(${funcionDetectada.id})">❌ Descartar</button>
-                            </div>
-                        </div>
-                    `;
-                    propuestas.innerHTML = htmlPropuesta;
-                    localStorage.setItem('subaru_propuesta_html', htmlPropuesta);
-                }
-            }, 10000);
-        }
-
-        function confirmarFuncion(id) {
-            let propuestas = document.getElementById('propuestas-zone');
-            let zonaModulos = document.getElementById('dinamic-modules-zone');
-            let log = document.getElementById('consola-log');
-
-            let funcionAceptada = bancoNuevasFunciones.find(f => f.id === id);
-            propuestas.innerHTML = "";
-            localStorage.removeItem('subaru_propuesta_html');
-            
-            ultimoModuloId = funcionAceptada.htmlId;
-            localStorage.setItem('subaru_ultimoid_auto', ultimoModuloId);
-
-            log.innerHTML += `<br><span style="color:#00ffcc;">[Integración]:</span> Inyectando módulo al núcleo...`;
-            log.scrollTop = log.scrollHeight;
-
-            setTimeout(() => {
-                zonaModulos.innerHTML += funcionAceptada.html;
-                localStorage.setItem('subaru_backup_modulos', zonaModulos.innerHTML);
-                
-                indiceFuncionActual++;
-                localStorage.setItem('subaru_indice_auto', indiceFuncionActual);
-
-                log.innerHTML += `<br><span style="color:#ff00ff;">[Backup]:</span> Respaldado con éxito en memoria.`;
-                log.scrollTop = log.scrollHeight;
-
-                document.getElementById('modal-titulo').innerText = "⚡ PLATAFORMA ACTUALIZADA";
-                document.getElementById('modal-texto').innerText = `Se integró correctamente: "${funcionAceptada.titulo}".`;
-                document.getElementById('modal-overlay').classList.add('activo');
-            }, 400);
-        }
-
-        function descartarFuncion(id) {
-            document.getElementById('propuestas-zone').innerHTML = "";
-            localStorage.removeItem('subaru_propuesta_html');
-            let log = document.getElementById('consola-log');
-            log.innerHTML += `<br><span style="color:#ff0055;>[Sistema]:</span> Propuesta omitida.`;
-            log.scrollTop = log.scrollHeight;
-            indiceFuncionActual++;
-            localStorage.setItem('subaru_indice_auto', indiceFuncionActual);
-        }
-
-        function irACorroborarActualizacion() {
-            document.getElementById('modal-overlay').classList.remove('activo');
-            // Cambiar automáticamente a la pestaña Bot Core para ver el resultado
-            cambiarVista('bot', document.querySelectorAll('.tab-btn')[3]);
-
-            if(ultimoModuloId) {
-                setTimeout(() => {
-                    let elementoModulo = document.getElementById(ultimoModuloId);
-                    if(elementoModulo) {
-                        elementoModulo.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        elementoModulo.classList.add('destacado-nuevo');
-                        setTimeout(() => {
-                            elementoModulo.classList.remove('destacado-nuevo');
-                        }, 3000);
-                    }
-                }, 300);
-            }
-        }
-
-        function reiniciarBackup() {
-            if(confirm("¿Restablecer el núcleo y limpiar todo el backup guardado?")) {
-                localStorage.clear();
-                location.reload();
-            }
-        }
 
         function emitirPrestamoLegal() {
             let solicitante = document.getElementById('solicitante').value.trim();
