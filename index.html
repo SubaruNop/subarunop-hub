@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubaruNop Live Sync Core - Búsqueda Inteligente Única</title>
+    <title>SubaruNop Live Sync Core - Modal Emergente</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
 
@@ -102,8 +102,23 @@
             display: inline-flex; padding: 4px 8px; border-radius: 4px; font-size: 7px; 
             font-family: 'Orbitron', sans-serif; background: rgba(0, 255, 204, 0.15); color: #00ffcc; border: 1px solid #00ffcc;
         }
-        @keyframes blinkPulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
-        .live-indicator { animation: blinkPulse 2s infinite; color: #ff00ff; font-weight: bold; }
+
+        /* MODAL EMERGENTE CYBERPUNK */
+        #modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(2, 4, 12, 0.85); backdrop-filter: blur(8px);
+            z-index: 9999; display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        #modal-overlay.activo { opacity: 1; pointer-events: auto; }
+        .modal-box {
+            background: rgba(10, 15, 30, 0.95); border: 2px solid #00ffcc; border-radius: 16px;
+            padding: 20px; width: 90%; max-width: 400px; text-align: center;
+            box-shadow: 0 0 35px rgba(0, 255, 204, 0.5); transform: scale(0.8); transition: transform 0.3s ease;
+        }
+        #modal-overlay.activo .modal-box { transform: scale(1); }
+        .modal-box h2 { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 14px; margin-bottom: 8px; text-shadow: 0 0 10px #00ffcc; }
+        .modal-box p { font-size: 10px; color: #8be9fd; margin-bottom: 14px; }
     </style>
 </head>
 <body>
@@ -111,13 +126,21 @@
     <canvas id="bg-canvas"></canvas>
     <div class="scanline-overlay"></div>
 
+    <div id="modal-overlay">
+        <div class="modal-box">
+            <h2 id="modal-titulo">⚡ ¡CAMBIO APLICADO!</h2>
+            <p id="modal-texto">El módulo se ha integrado correctamente al núcleo con éxito.</p>
+            <button class="cyber-btn" onclick="cerrarModal()">ENTendido, Comandante</button>
+        </div>
+    </div>
+
     <div class="container">
         <header>
             <div>
                 <h1>⚡ SUBARUNOP LIVE SYNC CORE</h1>
-                <p>Admin: Ángel Barreto | Búsqueda Evolutiva sin Repetición</p>
+                <p>Admin: Ángel Barreto | Alerta de Cambio Real</p>
             </div>
-            <div class="platform-badge">AUTO-EXPANSION ACTIVA</div>
+            <div class="platform-badge">MODO DIÁLOGO ACTIVO</div>
         </header>
 
         <div class="nav-tabs">
@@ -156,7 +179,7 @@
             <div class="panel" style="border-color: #00ffcc;">
                 <h3 style="color: #00ffcc;">📡 Radar Multiplataforma Live</h3>
                 <div id="radar-status" style="background: rgba(0, 5, 15, 0.9); padding: 12px; border-radius: 8px; font-size: 9px; color: #00ffcc; border: 1px solid #00ffcc; font-family: 'Courier New', monospace; min-height: 80px;">
-                    [Live Sync]: Enlace seguro establecido... <span class="live-indicator">● EN VIVO</span>
+                    [Live Sync]: Enlace seguro establecido... <span style="color:#ff00ff; font-weight:bold;">● EN VIVO</span>
                 </div>
             </div>
         </div>
@@ -172,7 +195,7 @@
                 </div>
 
                 <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 130px; overflow-y: auto; margin-top: 6px; font-family: 'Courier New', monospace;">
-                    [Subaru IA v3.0]: Base de datos sincronizada. Listo para buscar expansiones inéditas...
+                    [Subaru IA v3.5]: Sistema con Alerta Emergente activo...
                 </div>
             </div>
 
@@ -232,24 +255,23 @@
         }
         drawParticles();
 
-        // Lista de funciones futuras inéditas que el bot puede descubrir progresivamente
         const bancoNuevasFunciones = [
             {
                 id: 3,
                 titulo: "📊 Módulo: Gráficos de Audiencia en Tiempo Real",
-                desc: "El bot detectó analíticas de retención y picos de espectadores de Twitch/Kick. ¿Deseas sumarlo?",
+                desc: "Analíticas de retención y picos de espectadores detectados.",
                 html: `<div class="panel" style="border-color: #00ffcc; margin-top: 6px;"><h3 style="color: #00ffcc; font-size:10px;">📊 Analíticas de Audiencia Activas</h3><p style="font-size: 8px; color: #fff;">Monitoreando picos de espectadores y retención cross-stream.</p></div>`
             },
             {
                 id: 4,
                 titulo: "🛡️ Módulo: Moderación Anti-Spam Automatizada",
-                desc: "El bot detectó un filtro inteligente de bots y palabras clave en directos externos. ¿Deseas integrarlo?",
+                desc: "Filtro inteligente de bots y palabras clave detectado.",
                 html: `<div class="panel" style="border-color: #ff00ff; margin-top: 6px;"><h3 style="color: #ff00ff; font-size:10px;">🛡️ Moderación Anti-Spam Activa</h3><p style="font-size: 8px; color: #fff;">Filtro de IA operando y bloqueando enlaces maliciosos.</p></div>`
             },
             {
                 id: 5,
-                titulo: "🎯 Módulo: Widget de Metas de Suscriptores / Donaciones",
-                desc: "El bot detectó barras de progreso dinámicas para metas de stream. ¿Deseas integrarlo?",
+                titulo: "🎯 Módulo: Widget de Metas de Suscriptores",
+                desc: "Barra de progreso dinámica para metas de stream detectada.",
                 html: `<div class="panel" style="border-color: #00ffcc; margin-top: 6px;"><h3 style="color: #00ffcc; font-size:10px;">🎯 Barra de Metas en Vivo</h3><p style="font-size: 8px; color: #fff;">Progreso de donaciones y metas sincronizado con la tesorería.</p></div>`
             }
         ];
@@ -261,24 +283,24 @@
             let propuestas = document.getElementById('propuestas-zone');
 
             if (propuestas.innerHTML.trim() !== "") {
-                log.innerHTML += `<br><span style="color:#ff0055;">[Aviso]:</span> Ya hay una propuesta pendiente. Resuélvela antes de buscar más.`;
+                log.innerHTML += `<br><span style="color:#ff0055;">[Aviso]:</span> Resuelve la propuesta pendiente antes de buscar más.`;
                 log.scrollTop = log.scrollHeight;
                 return;
             }
 
             if (indiceFuncionActual >= bancoNuevasFunciones.length) {
-                log.innerHTML += `<br><span style="color:#ffcc00;">[Sistema]:</span> ¡Todas las funciones externas disponibles ya han sido exploradas e integradas!`;
+                log.innerHTML += `<br><span style="color:#ffcc00;">[Sistema]:</span> ¡Todas las funciones externas disponibles ya han sido integradas!`;
                 log.scrollTop = log.scrollHeight;
                 return;
             }
 
             let funcionDetectada = bancoNuevasFunciones[indiceFuncionActual];
 
-            log.innerHTML += `<br><span style="color:#00ffcc;">[Escaneo]:</span> Analizando plataformas externas... Filtrando módulos ya instalados.`;
+            log.innerHTML += `<br><span style="color:#00ffcc;">[Escaneo]:</span> Buscando novedades en plataformas externas...`;
             log.scrollTop = log.scrollHeight;
 
             setTimeout(() => {
-                log.innerHTML += `<br><span style="color:#ff00ff;">[Novedad]:</span> ¡Hallazgo inédito detectado! ${funcionDetectada.titulo}.`;
+                log.innerHTML += `<br><span style="color:#ff00ff;">[Novedad]:</span> ${funcionDetectada.titulo} detectado.`;
                 log.scrollTop = log.scrollHeight;
 
                 propuestas.innerHTML = `
@@ -302,19 +324,33 @@
             let funcionAceptada = bancoNuevasFunciones.find(f => f.id === id);
             propuestas.innerHTML = "";
 
-            log.innerHTML += `<br><span style="color:#00ffcc;">[Instalación]:</span> Módulo aprobado por Ángel. Integrando al núcleo...`;
+            log.innerHTML += `<br><span style="color:#00ffcc;">[Instalación]:</span> Integrando módulo al núcleo...`;
             log.scrollTop = log.scrollHeight;
 
-            zonaModulos.innerHTML += funcionAceptada.html;
-            indiceFuncionActual++;
+            setTimeout(() => {
+                zonaModulos.innerHTML += funcionAceptada.html;
+                log.innerHTML += `<br><span style="color:#00ffcc;">[Completado]:</span> Módulo instalado correctamente.`;
+                log.scrollTop = log.scrollHeight;
+
+                // MOSTRAR VENTANA EMERGENTE
+                document.getElementById('modal-titulo').innerText = "⚡ ¡MÓDULO INTEGRADO!";
+                document.getElementById('modal-texto').innerText = `Se ha inyectado con éxito: "${funcionAceptada.titulo}". El núcleo se ha actualizado.`;
+                document.getElementById('modal-overlay').classList.add('activo');
+
+                indiceFuncionActual++;
+            }, 600);
         }
 
         function rechazarFuncion(id) {
             document.getElementById('propuestas-zone').innerHTML = "";
             let log = document.getElementById('consola-log');
-            log.innerHTML += `<br><span style="color:#ff0055;>[Sistema]:</span> Propuesta descartada. Buscando alternativas en el próximo escaneo.`;
+            log.innerHTML += `<br><span style="color:#ff0055;">[Sistema]:</span> Propuesta descartada.`;
             log.scrollTop = log.scrollHeight;
             indiceFuncionActual++;
+        }
+
+        function cerrarModal() {
+            document.getElementById('modal-overlay').classList.remove('activo');
         }
 
         function emitirPrestamoLegal() {
@@ -327,7 +363,7 @@
         }
 
         function limpiarConsola() {
-            document.getElementById('consola-log').innerHTML = `[Subaru IA v3.0]: Consola limpia. Monitoreo activo...`;
+            document.getElementById('consola-log').innerHTML = `[Subaru IA v3.5]: Consola limpia...`;
         }
     </script>
 </body>
