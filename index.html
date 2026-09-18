@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubaruNop Ultimate Hub - Adaptive Commander</title>
+    <title>SubaruNop Ultimate Hub - Autonomous Core</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
 
@@ -11,77 +11,101 @@
 
         body {
             font-family: 'Rajdhani', sans-serif;
-            background-color: #010104;
+            background-color: #030308;
             color: #00ffcc;
             min-height: 100vh;
             padding: 12px;
+            overflow-x: hidden;
         }
 
-        .quantum-bg {
+        #bg-canvas {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; background: #020208;
+        }
+
+        .scanline-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle at 50% 30%, #0a061a 0%, #020208 70%, #000000 100%);
-            z-index: -2;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 3px; z-index: -1; pointer-events: none;
         }
 
-        /* ESTRUCTURA ADAPTATIVA (GRID INTELIGENTE) */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            max-width: 1400px;
+        .container {
+            max-width: 1000px;
             margin: 0 auto;
-        }
-
-        /* En Tablets pasa a 2 columnas */
-        @media (min-width: 768px) {
-            .dashboard-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .full-width-tablet {
-                grid-column: span 2;
-            }
-        }
-
-        /* En PCs pasa a 3 columnas estilo Centro de Mando */
-        @media (min-width: 1200px) {
-            .dashboard-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .full-width-pc {
-                grid-column: span 3;
-            }
-            .span-two-pc {
-                grid-column: span 2;
-            }
         }
 
         header {
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(10, 10, 25, 0.95); padding: 14px 18px; border-radius: 14px;
-            border: 1px solid rgba(0, 255, 204, 0.4); box-shadow: 0 0 25px rgba(0, 255, 204, 0.3);
+            background: rgba(10, 15, 30, 0.85); backdrop-filter: blur(12px);
+            padding: 14px 18px; border-radius: 14px;
+            border: 1px solid rgba(0, 255, 204, 0.5);
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.2);
             margin-bottom: 12px;
         }
-        header h1 { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #fff; text-shadow: 0 0 10px #00ffcc; }
-        header p { color: #8be9fd; font-size: 9px; font-weight: 700; }
+        header h1 { font-family: 'Orbitron', sans-serif; font-size: 12px; color: #fff; text-shadow: 0 0 10px #00ffcc; }
+        header p { color: #8be9fd; font-size: 8px; font-weight: 700; text-transform: uppercase; }
+
+        .nav-tabs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .tab-btn {
+            background: rgba(5, 10, 25, 0.9);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            color: #8be9fd;
+            padding: 8px;
+            border-radius: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 8px;
+            font-weight: 900;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), rgba(255, 0, 255, 0.2));
+            border-color: #00ffcc;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+        }
+
+        .view-section {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .panel {
-            background: rgba(5, 5, 15, 0.95); border: 1px solid rgba(0, 255, 204, 0.3);
-            border-radius: 14px; padding: 14px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+            background: rgba(8, 12, 28, 0.85); backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 14px; padding: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
             position: relative; overflow: hidden;
-            display: flex; flex-direction: column; justify-content: space-between;
+            margin-bottom: 12px;
         }
         .panel::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
             background: linear-gradient(to bottom, #00ffcc, #ff00ff);
         }
         .panel h3 {
-            font-family: 'Orbitron', sans-serif; margin-top: 0; font-size: 11px; border-bottom: 1px solid rgba(0, 255, 204, 0.3);
-            padding-bottom: 6px; color: #fff; font-weight: 900; margin-bottom: 8px;
+            font-family: 'Orbitron', sans-serif; font-size: 11px; border-bottom: 1px solid rgba(0, 255, 204, 0.3);
+            padding-bottom: 6px; color: #fff; font-weight: 900; margin-bottom: 10px;
+            text-shadow: 0 0 6px rgba(0, 255, 204, 0.5);
         }
 
         input.cyber-input, select.cyber-input {
-            width: 100%; padding: 10px; background: #000208; border: 1px solid #00ffcc;
+            width: 100%; padding: 10px; background: rgba(0, 5, 15, 0.9); border: 1px solid #00ffcc;
             border-radius: 8px; color: #00ffcc; font-family: 'Rajdhani', sans-serif; font-size: 11px;
             margin-bottom: 8px; outline: none;
         }
@@ -90,133 +114,204 @@
             width: 100%; padding: 10px; background: linear-gradient(135deg, #00ffcc, #0077ff);
             color: #000; border: none; border-radius: 8px; font-family: 'Orbitron', sans-serif;
             font-weight: 900; cursor: pointer; font-size: 10px; text-transform: uppercase; margin-bottom: 8px;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease; box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
         }
-        button.cyber-btn:hover { filter: brightness(1.2); box-shadow: 0 0 15px rgba(0,255,204,0.5); }
+        button.cyber-btn:hover { filter: brightness(1.2); box-shadow: 0 0 15px rgba(0, 255, 204, 0.6); }
+
+        .metric-box {
+            background: rgba(0, 0, 0, 0.75); padding: 12px; border-radius: 8px;
+            border: 1px solid #00ffcc; text-align: center; font-family: 'Orbitron', sans-serif;
+        }
+        .metric-value { color: #fff; font-size: 12px; text-shadow: 0 0 8px #00ffcc; }
 
         .platform-badge {
             display: inline-flex; padding: 4px 8px; border-radius: 4px; font-size: 7px; 
             font-family: 'Orbitron', sans-serif; background: rgba(0, 255, 204, 0.15); color: #00ffcc; border: 1px solid #00ffcc;
         }
+
+        @keyframes blinkPulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+        .live-indicator { animation: blinkPulse 2s infinite; color: #ff00ff; font-weight: bold; }
     </style>
 </head>
-<body class="quantum-bg">
+<body>
 
-    <header class="full-width-pc" style="max-width: 1400px; margin: 0 auto 12px auto;">
-        <div>
-            <h1>⚡ SUBARUNOP ADAPTIVE COMMANDER</h1>
-            <p>Admin Exclusivo: Ángel Barreto | Multi-Dispositivo (PC / Tablet / Celu)</p>
+    <canvas id="bg-canvas"></canvas>
+    <div class="scanline-overlay"></div>
+
+    <div class="container">
+        <header>
+            <div>
+                <h1>⚡ SUBARUNOP AUTONOMOUS CORE</h1>
+                <p>Admin: Ángel Barreto | Bot en Modo Autónomo</p>
+            </div>
+            <div id="device-indicator" class="platform-badge">AUTOPILOTO ACTIVO</div>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="cambiarVista('tesoreria', this)">💰 Tesorería</button>
+            <button class="tab-btn" onclick="cambiarVista('prestamos', this)">🏦 Préstamos</button>
+            <button class="tab-btn" onclick="cambiarVista('radar', this)">📡 Radar</button>
+            <button class="tab-btn" onclick="cambiarVista('bot', this)">🤖 Bot Core</button>
         </div>
-        <div id="device-indicator" class="platform-badge">AUTO-DETECTANDO...</div>
-    </header>
 
-    <div class="dashboard-grid">
-
-        <!-- TESORERÍA GLOBAL -->
-        <div class="panel span-two-pc full-width-tablet">
-            <h3>💰 Tesorería Global & Ingresos Pasivos</h3>
-            <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">Control unificado de capital y comisiones QR en tiempo real.</p>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; font-size: 9px; text-align: center; font-family: 'Orbitron', sans-serif;">
-                <div style="background:#000; padding:10px; border-radius:6px; border:1px solid #00ffcc;">USD GLOBAL<br><b style="color:#fff; font-size:11px;">$14,850.00</b></div>
-                <div style="background:#000; padding:10px; border-radius:6px; border:1px solid #7000ff;">PASIVO ACUMULADO<br><b style="color:#fff; font-size:11px;">$3,420.00</b></div>
-                <div style="background:#000; padding:10px; border-radius:6px; border:1px solid #ff00ff;">COMISIONES QR<br><b style="color:#fff; font-size:11px;">4.5% Activo</b></div>
+        <!-- VISTA 1: TESORERÍA -->
+        <div id="view-tesoreria" class="view-section active">
+            <div class="panel">
+                <h3>💰 Tesorería Global & Ingresos Pasivos</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Control automatizado de capital y comisiones QR en tiempo real.</p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; font-size: 8px;">
+                    <div class="metric-box">USD GLOBAL<br><b class="metric-value">$14,850.00</b></div>
+                    <div class="metric-box" style="border-color: #7000ff;">PASIVO<br><b class="metric-value" style="text-shadow: 0 0 8px #7000ff;">$3,420.00</b></div>
+                    <div class="metric-box" style="border-color: #ff00ff;">QR MP<br><b class="metric-value" style="text-shadow: 0 0 8px #ff00ff;">4.5% Activo</b></div>
+                </div>
             </div>
         </div>
 
-        <!-- MÓDULO DE PRÉSTAMOS -->
-        <div class="panel">
-            <h3>🏦 Préstamos & Contratos Legales</h3>
-            <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">Créditos con ejecución legal automatizada:</p>
-            
-            <input type="text" id="solicitante" class="cyber-input" placeholder="Streamer / Empresa solicitante...">
-            <input type="number" id="monto-prestamo" class="cyber-input" placeholder="Monto en USD...">
-            <select id="tipo-contrato" class="cyber-input">
-                <option value="streamer">Contrato Streamer (Retención)</option>
-                <option value="empresa">Contrato Corporativo (Ejecución Legal)</option>
-            </select>
-            <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #7000ff); color: #fff;" onclick="emitirPrestamoLegal()">⚖️ Emitir Contrato</button>
-        </div>
-
-        <!-- ZONA DINÁMICA DE MÓDULOS -->
-        <div id="dinamic-modules-zone" class="full-width-tablet" style="display: contents;"></div>
-
-        <!-- BOT AUTÓNOMO & CONSOLA -->
-        <div class="panel span-two-pc full-width-tablet">
-            <h3>🤖 Bot Autónomo & Clasificador por Niveles</h3>
-            <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">Gestión automática (Free, Niveles 1-20, Élite/Premium):</p>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                <button class="cyber-btn" onclick="auditarYClasificarFuncion()">🔍 Auditar y Clasificar</button>
-                <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #00ffcc); color: #000;" onclick="limpiarConsola()">🧹 Limpiar Consola</button>
-            </div>
-
-            <input type="text" id="orden-usuario" class="cyber-input" placeholder="Escribe una orden o comando para Subaru IA..." style="margin-top: 6px;">
-            <button class="cyber-btn" onclick="procesarComandoBot()">⚡ Ejecutar en el Sistema</button>
-
-            <div id="consola-log" style="background: #000208; padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 110px; overflow-y: auto; margin-top: 6px; font-family: 'Courier New', monospace;">
-                [Core Multidispositivo]: Sistema responsivo activo. Listos para operar en PC, Tablet y Celular...
+        <!-- VISTA 2: PRÉSTAMOS -->
+        <div id="view-prestamos" class="view-section">
+            <div class="panel">
+                <h3>🏦 Módulo de Préstamos & Contratos Legales</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Emisión de créditos con ejecución legal automatizada:</p>
+                
+                <input type="text" id="solicitante" class="cyber-input" placeholder="Streamer / Empresa solicitante...">
+                <input type="number" id="monto-prestamo" class="cyber-input" placeholder="Monto en USD...">
+                <select id="tipo-contrato" class="cyber-input">
+                    <option value="streamer">Contrato Streamer (Retención)</option>
+                    <option value="empresa">Contrato Corporativo (Ejecución Legal)</option>
+                </select>
+                <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #7000ff); color: #fff;" onclick="emitirPrestamoLegal()">⚖️ Emitir Contrato Legal</button>
             </div>
         </div>
 
+        <!-- VISTA 3: RADAR -->
+        <div id="view-radar" class="view-section">
+            <div class="panel" style="border-color: #00ffcc;">
+                <h3 style="color: #00ffcc;">📡 Radar de Competencia en Tiempo Real</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">El bot analiza flujos externos y canales rivales segundo a segundo:</p>
+                <div id="radar-status" style="background: rgba(0, 5, 15, 0.9); padding: 12px; border-radius: 8px; font-size: 9px; color: #00ffcc; border: 1px solid #00ffcc; font-family: 'Courier New', monospace; min-height: 80px;">
+                    [Bot Radar]: Monitoreando streams y métricas externas... <span class="live-indicator">● EN VIVO</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISTA 4: BOT CORE -->
+        <div id="view-bot" class="view-section">
+            <div class="panel">
+                <h3>🤖 Bot Autónomo & "Subaru te ayuda"</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Clasificador automático y soporte en vivo:</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px;">
+                    <button class="cyber-btn" onclick="auditarYClasificarFuncion()">🔍 Auditar Competencia & Niveles</button>
+                    <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #00ffcc); color: #000;" onclick="limpiarConsola()">🧹 Limpiar Consola</button>
+                </div>
+
+                <input type="text" id="orden-usuario" class="cyber-input" placeholder="Escribe una orden o comando para Subaru IA...">
+                <button class="cyber-btn" onclick="procesarComandoBot()">⚡ Ejecutar Orden</button>
+
+                <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 110px; overflow-y: auto; margin-top: 6px; font-family: 'Courier New', monospace;">
+                    [Bot Financial Core]: Sistemas de cobro Mercado Pago (QR y Transferencias) vinculados. Listos para operar...
+                </div>
+            </div>
+
+            <div id="dinamic-modules-zone"></div>
+        </div>
     </div>
 
     <script>
-        // Detección automática del dispositivo
-        window.addEventListener('DOMContentLoaded', () => {
-            let width = window.innerWidth;
-            let badge = document.getElementById('device-indicator');
-            if (width < 768) {
-                badge.innerText = "MÓVIL TÁCTIL ACTIVO";
-            } else if (width >= 768 && width < 1200) {
-                badge.innerText = "TABLET ADAPTATIVA ACTIVA";
-            } else {
-                badge.innerText = "CENTRO DE MANDO PC ACTIVO";
-            }
+        function cambiarVista(nombreVista, btnElement) {
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('view-' + nombreVista).classList.add('active');
+            btnElement.classList.add('active');
+        }
+
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
         });
+
+        const particles = Array.from({ length: 35 }, () => ({
+            x: Math.random() * width, y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6, radius: Math.random() * 2 + 1
+        }));
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = '#00ffcc'; ctx.strokeStyle = 'rgba(0, 255, 204, 0.1)';
+            particles.forEach((p, i) => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fill();
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    if (Math.hypot(p.x - p2.x, p.y - p2.y) < 100) {
+                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+
+        const objetivosCompetencia = [
+            "Analizando streams activos en Kick y plataformas rivales...",
+            "Detectando variaciones de espectadores y métricas externas...",
+            "Escaneando picos de interacción de canales de la competencia...",
+            "Optimizando parámetros tácticos del SubaruNop Commander..."
+        ];
+
+        function iniciarRadarAutonomo() {
+            let radarLog = document.getElementById('radar-status');
+            let index = 0;
+            setInterval(() => {
+                if(radarLog) {
+                    radarLog.innerHTML = `[Radar Live]: ${objetivosCompetencia[index]} <span class="live-indicator">● EN VIVO</span>`;
+                    index = (index + 1) % objetivosCompetencia.length;
+                }
+            }, 3500);
+        }
+        window.onload = iniciarRadarAutonomo;
 
         const funcionesMercado = [
             { nombre: "HUD de Transmisión Cuántica 3D", nivel: "Élite / Premium" },
             { nombre: "Sistema de Alertas de Audio por Zona", nivel: "Nivel 10 al 20" },
-            { nombre: "Chat Local con Filtro por Provincia", nivel: "Gratuito (Free)" },
-            { nombre: "Billetera de Regalos TikTok-Style", nivel: "Nivel 1 al 20" }
+            { nombre: "Chat Local con Filtro por Provincia", nivel: "Gratuito (Free)" }
         ];
 
         function auditarYClasificarFuncion() {
             let log = document.getElementById('consola-log');
             let zonaModulos = document.getElementById('dinamic-modules-zone');
-
-            log.innerHTML += `<br><span style="color:#00ffcc;">[Bot Autónomo]:</span> Analizando funciones externas y adaptando a la pantalla actual...`;
+            log.innerHTML += `<br><span style="color:#00ffcc;">[Bot Autónomo]:</span> Auditando competencia y clasificando niveles...`;
             log.scrollTop = log.scrollHeight;
 
             setTimeout(() => {
                 let item = funcionesMercado[Math.floor(Math.random() * funcionesMercado.length)];
-                
-                log.innerHTML += `<br><span style="color:#ff00ff;">[Clasificación IA]:</span> Detectado: <b style="color:#fff;">"${item.nombre}"</b> -> ${item.nivel}`;
+                log.innerHTML += `<br><span style="color:#ff00ff;">[Módulo Inyectado]:</span> "${item.nombre}" (${item.nivel}).`;
                 log.scrollTop = log.scrollHeight;
-
                 zonaModulos.innerHTML += `
-                    <div class="panel">
-                        <h3 style="color: #00ffcc;">📌 Módulo: ${item.nombre}</h3>
-                        <p style="font-size: 9px; color: #fff;">Nivel: <b>${item.nivel}</b> — Ingresos pasivos inyectados.</p>
+                    <div class="panel" style="border-color: #ff00ff; margin-top: 10px;">
+                        <h3 style="color: #ff00ff;">📌 Módulo: ${item.nombre}</h3>
+                        <p style="font-size: 9px; color: #fff;">Nivel: <b>${item.nivel}</b></p>
                     </div>
                 `;
-            }, 600);
+            }, 500);
         }
 
         function emitirPrestamoLegal() {
             let solicitante = document.getElementById('solicitante').value.trim();
             let monto = document.getElementById('monto-prestamo').value.trim();
-            let tipo = document.getElementById('tipo-contrato').value;
-            let log = document.getElementById('consola-log');
-
-            if (!solicitante || !monto) {
-                alert("Completa el nombre y el monto.");
-                return;
-            }
-
-            log.innerHTML += `<br><span style="color:#ff00ff;">[Finanzas]:</span> Contrato generado para <b style="color:#fff;">${solicitante}</b> ($${monto} USD - ${tipo}).`;
-            log.scrollTop = log.scrollHeight;
-            alert(`¡Contrato digital emitido con éxito para ${solicitante} (${tipo})!`);
+            if (!solicitante || !monto) { alert("Completa los campos."); return; }
+            alert(`Contrato legal emitido para ${solicitante} por $${monto} USD.`);
             document.getElementById('solicitante').value = "";
             document.getElementById('monto-prestamo').value = "";
         }
@@ -225,21 +320,18 @@
             let input = document.getElementById('orden-usuario');
             let texto = input.value.trim();
             let log = document.getElementById('consola-log');
-
             if (!texto) return;
-
-            log.innerHTML += `<br><span style="color:#ff00ff;">[Comandante Ángel]:</span> ${texto}`;
+            log.innerHTML += `<br><span style="color:#ff00ff;">[Ángel]:</span> ${texto}`;
             log.scrollTop = log.scrollHeight;
-
             setTimeout(() => {
-                log.innerHTML += `<br><span style="color:#00ffcc;">[Subaru IA]:</span> Comando ejecutado y sincronizado en todos los dispositivos.`;
+                log.innerHTML += `<br><span style="color:#00ffcc;">[Subaru IA]:</span> Orden ejecutada autónomamente en el sistema.`;
                 log.scrollTop = log.scrollHeight;
                 input.value = "";
-            }, 500);
+            }, 400);
         }
 
         function limpiarConsola() {
-            document.getElementById('consola-log').innerHTML = `[Core Multidispositivo]: Consola reiniciada por Ángel Barreto.`;
+            document.getElementById('consola-log').innerHTML = `[Bot Financial Core]: Consola optimizada y limpia. Listos para operar...`;
         }
     </script>
 </body>
