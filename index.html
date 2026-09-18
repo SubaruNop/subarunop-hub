@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubaruNop Live Sync Core - Redirección Automática</title>
+    <title>SubaruNop Live Sync Core - Módulos Persistentes</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
 
@@ -80,7 +80,6 @@
             text-shadow: 0 0 6px rgba(0, 255, 204, 0.5);
         }
 
-        /* EFECTO BRILLO AL REDIRIGIR A UN MÓDULO NUEVO */
         .panel.destacado-nuevo {
             border-color: #ff00ff !important;
             box-shadow: 0 0 30px rgba(255, 0, 255, 0.8) !important;
@@ -138,7 +137,7 @@
     <div id="modal-overlay">
         <div class="modal-box">
             <h2 id="modal-titulo">⚡ ¡CAMBIO APLICADO!</h2>
-            <p id="modal-texto">El módulo se ha integrado correctamente al núcleo.</p>
+            <p id="modal-texto">El módulo se ha integrado y sumado al núcleo con éxito.</p>
             <button class="cyber-btn" onclick="irACorroborarActualizacion()">🔍 Ir a corroborar actualización</button>
         </div>
     </div>
@@ -147,9 +146,9 @@
         <header>
             <div>
                 <h1>⚡ SUBARUNOP LIVE SYNC CORE</h1>
-                <p>Admin: Ángel Barreto | Redirección de Verificación</p>
+                <p>Admin: Ángel Barreto | Módulos Acumulativos</p>
             </div>
-            <div class="platform-badge">MODO REDIRECCIÓN ACTIVO</div>
+            <div class="platform-badge">NÚCLEO PERSISTENTE</div>
         </header>
 
         <div class="nav-tabs">
@@ -204,18 +203,18 @@
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px;">
                     <button class="cyber-btn" onclick="ejecutarAuditoriaExterna()">🔍 Buscar Nuevas Funciones</button>
-                    <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #00ffcc); color: #000;" onclick="limpiarConsola()">🧹 Limpiar Consola</button>
+                    <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #00ffcc); color: #000;" onclick="reiniciarNucleo()">🔄 Restablecer Núcleo</button>
                 </div>
 
                 <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 130px; overflow-y: auto; margin-top: 6px; font-family: 'Courier New', monospace;">
-                    [Subaru IA v4.0]: Redirección inteligente activa...
+                    [Subaru IA v4.5]: Sistema de memoria persistente activo...
                 </div>
             </div>
 
             <!-- Zona de Propuestas Pendientes -->
             <div id="propuestas-zone"></div>
 
-            <!-- Zona de Módulos Activos -->
+            <!-- Zona de Módulos Activos (Se acumulan y guardan aquí) -->
             <div id="dinamic-modules-zone">
                 <h4 style="font-family:'Orbitron'; font-size:10px; margin-bottom:8px; color:#fff;">🧬 Módulos Ya Instalados en la Plataforma:</h4>
                 <div class="panel" style="border-color: #00ffcc; margin-bottom: 6px;">
@@ -276,26 +275,34 @@
                 titulo: "📊 Módulo: Gráficos de Audiencia en Tiempo Real",
                 desc: "Analíticas de retención y picos de espectadores detectados.",
                 htmlId: "modulo-graficos",
-                html: `<div id="modulo-graficos" class="panel" style="border-color: #00ffcc; margin-top: 6px;"><h3 style="color: #00ffcc; font-size:10px;">📊 Analíticas de Audiencia Activas</h3><p style="font-size: 8px; color: #fff;">Monitoreando picos de espectadores y retención cross-stream.</p></div>`
+                html: `<div id="modulo-graficos" class="panel" style="border-color: #00ffcc; margin-bottom: 6px;"><h3 style="color: #00ffcc; font-size:10px;">📊 Analíticas de Audiencia Activas</h3><p style="font-size: 8px; color: #fff;">Monitoreando picos de espectadores y retención cross-stream.</p></div>`
             },
             {
                 id: 4,
                 titulo: "🛡️ Módulo: Moderación Anti-Spam Automatizada",
                 desc: "Filtro inteligente de bots y palabras clave detectado.",
                 htmlId: "modulo-spam",
-                html: `<div id="modulo-spam" class="panel" style="border-color: #ff00ff; margin-top: 6px;"><h3 style="color: #ff00ff; font-size:10px;">🛡️ Moderación Anti-Spam Activa</h3><p style="font-size: 8px; color: #fff;">Filtro de IA operando y bloqueando enlaces maliciosos.</p></div>`
+                html: `<div id="modulo-spam" class="panel" style="border-color: #ff00ff; margin-bottom: 6px;"><h3 style="color: #ff00ff; font-size:10px;">🛡️ Moderación Anti-Spam Activa</h3><p style="font-size: 8px; color: #fff;">Filtro de IA operando y bloqueando enlaces maliciosos.</p></div>`
             },
             {
                 id: 5,
                 titulo: "🎯 Módulo: Widget de Metas de Suscriptores",
                 desc: "Barra de progreso dinámica para metas de stream detectada.",
                 htmlId: "modulo-metas",
-                html: `<div id="modulo-metas" class="panel" style="border-color: #00ffcc; margin-top: 6px;"><h3 style="color: #00ffcc; font-size:10px;">🎯 Barra de Metas en Vivo</h3><p style="font-size: 8px; color: #fff;">Progreso de donaciones y metas sincronizado con la tesorería.</p></div>`
+                html: `<div id="modulo-metas" class="panel" style="border-color: #00ffcc; margin-bottom: 6px;"><h3 style="color: #00ffcc; font-size:10px;">🎯 Barra de Metas en Vivo</h3><p style="font-size: 8px; color: #fff;">Progreso de donaciones y metas sincronizado con la tesorería.</p></div>`
             }
         ];
 
-        let indiceFuncionActual = 0;
-        let ultimoModuloId = "";
+        let indiceFuncionActual = parseInt(localStorage.getItem('subaru_indice') || '0');
+        let ultimoModuloId = localStorage.getItem('subaru_ultimoid') || "";
+
+        // Cargar módulos guardados al iniciar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            let modulosGuardados = localStorage.getItem('subaru_modulos');
+            if (modulosGuardados) {
+                document.getElementById('dinamic-modules-zone').innerHTML = modulosGuardados;
+            }
+        });
 
         function ejecutarAuditoriaExterna() {
             let log = document.getElementById('consola-log');
@@ -308,7 +315,7 @@
             }
 
             if (indiceFuncionActual >= bancoNuevasFunciones.length) {
-                log.innerHTML += `<br><span style="color:#ffcc00;">[Sistema]:</span> ¡Todas las funciones externas disponibles ya han sido integradas!`;
+                log.innerHTML += `<br><span style="color:#ffcc00;">[Sistema]:</span> ¡Todas las funciones externas disponibles ya han sido integradas y sumadas!`;
                 log.scrollTop = log.scrollHeight;
                 return;
             }
@@ -327,7 +334,7 @@
                         <h3 style="color: #ff00ff;">⚡ Propuesta Inédita: ${funcionDetectada.titulo}</h3>
                         <p style="font-size: 9px; color: #fff; margin-bottom: 8px;">${funcionDetectada.desc}</p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                            <button class="cyber-btn" style="background: #00ffcc; color:#000;" onclick="aceptarFuncion(${funcionDetectada.id})">✅ Aceptar & Instalar</button>
+                            <button class="cyber-btn" style="background: #00ffcc; color:#000;" onclick="aceptarFuncion(${funcionDetectada.id})">✅ Aceptar & Sumar</button>
                             <button class="cyber-btn" style="background: #ff0055; color:#fff;" onclick="rechazarFuncion(${funcionDetectada.id})">❌ Rechazar</button>
                         </div>
                     </div>
@@ -343,21 +350,26 @@
             let funcionAceptada = bancoNuevasFunciones.find(f => f.id === id);
             propuestas.innerHTML = "";
             ultimoModuloId = funcionAceptada.htmlId;
+            localStorage.setItem('subaru_ultimoid', ultimoModuloId);
 
-            log.innerHTML += `<br><span style="color:#00ffcc;">[Instalación]:</span> Integrando módulo al núcleo...`;
+            log.innerHTML += `<br><span style="color:#00ffcc;">[Instalación]:</span> Sumando módulo al núcleo persistente...`;
             log.scrollTop = log.scrollHeight;
 
             setTimeout(() => {
                 zonaModulos.innerHTML += funcionAceptada.html;
-                log.innerHTML += `<br><span style="color:#00ffcc;">[Completado]:</span> Módulo instalado correctamente.`;
+                
+                // GUARDAR EN LOCALSTORAGE PARA QUE NO SE BORRE NUNCA
+                localStorage.setItem('subaru_modulos', zonaModulos.innerHTML);
+                indiceFuncionActual++;
+                localStorage.setItem('subaru_indice', indiceFuncionActual);
+
+                log.innerHTML += `<br><span style="color:#00ffcc;">[Completado]:</span> Módulo acumulado y guardado con éxito.`;
                 log.scrollTop = log.scrollHeight;
 
-                // MOSTRAR VENTANA EMERGENTE CON OPCIÓN DE REDIRECCIÓN
-                document.getElementById('modal-titulo').innerText = "⚡ ¡MÓDULO INTEGRADO!";
-                document.getElementById('modal-texto').innerText = `Se ha inyectado con éxito: "${funcionAceptada.titulo}".`;
+                // MOSTRAR VENTANA EMERGENTE
+                document.getElementById('modal-titulo').innerText = "⚡ ¡MÓDULO SUMADO AL NÚCLEO!";
+                document.getElementById('modal-texto').innerText = `Se ha inyectado y guardado permanentemente: "${funcionAceptada.titulo}".`;
                 document.getElementById('modal-overlay').classList.add('activo');
-
-                indiceFuncionActual++;
             }, 600);
         }
 
@@ -367,13 +379,12 @@
             log.innerHTML += `<br><span style="color:#ff0055;">[Sistema]:</span> Propuesta descartada.`;
             log.scrollTop = log.scrollHeight;
             indiceFuncionActual++;
+            localStorage.setItem('subaru_indice', indiceFuncionActual);
         }
 
         function irACorroborarActualizacion() {
-            // Cerrar modal
             document.getElementById('modal-overlay').classList.remove('activo');
 
-            // Redirigir haciendo scroll hacia el nuevo módulo instalado y resaltarlo
             if(ultimoModuloId) {
                 let elementoModulo = document.getElementById(ultimoModuloId);
                 if(elementoModulo) {
@@ -386,6 +397,13 @@
             }
         }
 
+        function reiniciarNucleo() {
+            if(confirm("¿Restablecer y borrar todos los módulos acumulados?")) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
         function emitirPrestamoLegal() {
             let solicitante = document.getElementById('solicitante').value.trim();
             let monto = document.getElementById('monto-prestamo').value.trim();
@@ -393,10 +411,6 @@
             alert(`Contrato legal emitido para ${solicitante} por $${monto} USD.`);
             document.getElementById('solicitante').value = "";
             document.getElementById('monto-prestamo').value = "";
-        }
-
-        function limpiarConsola() {
-            document.getElementById('consola-log').innerHTML = `[Subaru IA v4.0]: Consola limpia...`;
         }
     </script>
 </body>
