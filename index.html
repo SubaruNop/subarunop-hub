@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubaruNop Live Sync Core - Aprobación Humana</title>
+    <title>SubaruNop Live Sync Core - Búsqueda Inteligente Única</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
 
@@ -115,9 +115,9 @@
         <header>
             <div>
                 <h1>⚡ SUBARUNOP LIVE SYNC CORE</h1>
-                <p>Admin: Ángel Barreto | Control de Aprobación Humana</p>
+                <p>Admin: Ángel Barreto | Búsqueda Evolutiva sin Repetición</p>
             </div>
-            <div class="platform-badge">MODO SEGURO</div>
+            <div class="platform-badge">AUTO-EXPANSION ACTIVA</div>
         </header>
 
         <div class="nav-tabs">
@@ -127,7 +127,6 @@
             <button class="tab-btn" onclick="cambiarVista('bot', this)">🤖 Bot Core</button>
         </div>
 
-        <!-- VISTA 1: TESORERÍA -->
         <div id="view-tesoreria" class="view-section active">
             <div class="panel">
                 <h3>💰 Tesorería Global & Pagos (Mercado Pago)</h3>
@@ -140,7 +139,6 @@
             </div>
         </div>
 
-        <!-- VISTA 2: PRÉSTAMOS -->
         <div id="view-prestamos" class="view-section">
             <div class="panel">
                 <h3>🏦 Módulo de Préstamos & Contratos Legales</h3>
@@ -154,7 +152,6 @@
             </div>
         </div>
 
-        <!-- VISTA 3: RADAR -->
         <div id="view-radar" class="view-section">
             <div class="panel" style="border-color: #00ffcc;">
                 <h3 style="color: #00ffcc;">📡 Radar Multiplataforma Live</h3>
@@ -164,27 +161,32 @@
             </div>
         </div>
 
-        <!-- VISTA 4: BOT CORE -->
         <div id="view-bot" class="view-section">
             <div class="panel">
-                <h3>🤖 Bot Autónomo & Auditoría de Plataformas</h3>
-                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">El bot analiza funciones externas y te pide autorización antes de integrarlas:</p>
+                <h3>🤖 Bot Autónomo & Búsqueda de Nuevas Funciones</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">El bot escanea plataformas externas filtrando lo que ya poseemos:</p>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px;">
-                    <button class="cyber-btn" onclick="ejecutarAuditoriaExterna()">🔍 Auditar Redes (Kick/TikTok)</button>
+                    <button class="cyber-btn" onclick="ejecutarAuditoriaExterna()">🔍 Buscar Nuevas Funciones</button>
                     <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #00ffcc); color: #000;" onclick="limpiarConsola()">🧹 Limpiar Consola</button>
                 </div>
 
                 <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 130px; overflow-y: auto; margin-top: 6px; font-family: 'Courier New', monospace;">
-                    [Subaru IA v2.5]: Esperando orden de auditoría externa...
+                    [Subaru IA v3.0]: Base de datos sincronizada. Listo para buscar expansiones inéditas...
                 </div>
             </div>
 
-            <!-- Zona de Propuestas Pendientes de Aprobación -->
             <div id="propuestas-zone"></div>
 
-            <!-- Zona de Módulos Activos en la Plataforma -->
-            <div id="dinamic-modules-zone"></div>
+            <div id="dinamic-modules-zone">
+                <h4 style="font-family:'Orbitron'; font-size:10px; margin-bottom:8px; color:#fff;">🧬 Módulos Ya Instalados en la Plataforma:</h4>
+                <div class="panel" style="border-color: #00ffcc; margin-bottom: 6px;">
+                    <h3 style="color: #00ffcc; font-size:10px;">💬 Chat Unificado (Kick & TikTok)</h3>
+                </div>
+                <div class="panel" style="border-color: #00ffcc; margin-bottom: 6px;">
+                    <h3 style="color: #00ffcc; font-size:10px;">⚡ Alertas Mercado Pago QR</h3>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -230,47 +232,66 @@
         }
         drawParticles();
 
-        let auditoriaPaso = 0;
+        // Lista de funciones futuras inéditas que el bot puede descubrir progresivamente
+        const bancoNuevasFunciones = [
+            {
+                id: 3,
+                titulo: "📊 Módulo: Gráficos de Audiencia en Tiempo Real",
+                desc: "El bot detectó analíticas de retención y picos de espectadores de Twitch/Kick. ¿Deseas sumarlo?",
+                html: `<div class="panel" style="border-color: #00ffcc; margin-top: 6px;"><h3 style="color: #00ffcc; font-size:10px;">📊 Analíticas de Audiencia Activas</h3><p style="font-size: 8px; color: #fff;">Monitoreando picos de espectadores y retención cross-stream.</p></div>`
+            },
+            {
+                id: 4,
+                titulo: "🛡️ Módulo: Moderación Anti-Spam Automatizada",
+                desc: "El bot detectó un filtro inteligente de bots y palabras clave en directos externos. ¿Deseas integrarlo?",
+                html: `<div class="panel" style="border-color: #ff00ff; margin-top: 6px;"><h3 style="color: #ff00ff; font-size:10px;">🛡️ Moderación Anti-Spam Activa</h3><p style="font-size: 8px; color: #fff;">Filtro de IA operando y bloqueando enlaces maliciosos.</p></div>`
+            },
+            {
+                id: 5,
+                titulo: "🎯 Módulo: Widget de Metas de Suscriptores / Donaciones",
+                desc: "El bot detectó barras de progreso dinámicas para metas de stream. ¿Deseas integrarlo?",
+                html: `<div class="panel" style="border-color: #00ffcc; margin-top: 6px;"><h3 style="color: #00ffcc; font-size:10px;">🎯 Barra de Metas en Vivo</h3><p style="font-size: 8px; color: #fff;">Progreso de donaciones y metas sincronizado con la tesorería.</p></div>`
+            }
+        ];
+
+        let indiceFuncionActual = 0;
 
         function ejecutarAuditoriaExterna() {
             let log = document.getElementById('consola-log');
             let propuestas = document.getElementById('propuestas-zone');
 
-            log.innerHTML += `<br><span style="color:#00ffcc;">[Auditoría]:</span> Escaneando APIs de Kick, TikTok y Botrix en busca de nuevas funciones...`;
+            if (propuestas.innerHTML.trim() !== "") {
+                log.innerHTML += `<br><span style="color:#ff0055;">[Aviso]:</span> Ya hay una propuesta pendiente. Resuélvela antes de buscar más.`;
+                log.scrollTop = log.scrollHeight;
+                return;
+            }
+
+            if (indiceFuncionActual >= bancoNuevasFunciones.length) {
+                log.innerHTML += `<br><span style="color:#ffcc00;">[Sistema]:</span> ¡Todas las funciones externas disponibles ya han sido exploradas e integradas!`;
+                log.scrollTop = log.scrollHeight;
+                return;
+            }
+
+            let funcionDetectada = bancoNuevasFunciones[indiceFuncionActual];
+
+            log.innerHTML += `<br><span style="color:#00ffcc;">[Escaneo]:</span> Analizando plataformas externas... Filtrando módulos ya instalados.`;
             log.scrollTop = log.scrollHeight;
 
             setTimeout(() => {
-                auditoriaPaso++;
-                if(auditoriaPaso === 1) {
-                    log.innerHTML += `<br><span style="color:#ff00ff;">[Notificación]:</span> ¡Nueva función detectada! Widget de "Chat Unificado Cross-Platform".`;
-                    log.scrollTop = log.scrollHeight;
+                log.innerHTML += `<br><span style="color:#ff00ff;">[Novedad]:</span> ¡Hallazgo inédito detectado! ${funcionDetectada.titulo}.`;
+                log.scrollTop = log.scrollHeight;
 
-                    propuestas.innerHTML = `
-                        <div class="panel" id="propuesta-1" style="border-color: #ff00ff; background: rgba(20, 5, 25, 0.9);">
-                            <h3 style="color: #ff00ff;">⚡ Propuesta Pendiente #1: Chat Unificado</h3>
-                            <p style="font-size: 9px; color: #fff; margin-bottom: 8px;">El bot detectó sincronización de chat en vivo para Kick y TikTok. ¿Deseas aplicarla en tu plataforma?</p>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                                <button class="cyber-btn" style="background: #00ffcc; color:#000;" onclick="aceptarFuncion(1)">✅ Aceptar & Aplicar</button>
-                                <button class="cyber-btn" style="background: #ff0055; color:#fff;" onclick="rechazarFuncion(1)">❌ Rechazar</button>
-                            </div>
+                propuestas.innerHTML = `
+                    <div class="panel" id="propuesta-${funcionDetectada.id}" style="border-color: #ff00ff; background: rgba(20, 5, 25, 0.9);">
+                        <h3 style="color: #ff00ff;">⚡ Propuesta Inédita: ${funcionDetectada.titulo}</h3>
+                        <p style="font-size: 9px; color: #fff; margin-bottom: 8px;">${funcionDetectada.desc}</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                            <button class="cyber-btn" style="background: #00ffcc; color:#000;" onclick="aceptarFuncion(${funcionDetectada.id})">✅ Aceptar & Instalar</button>
+                            <button class="cyber-btn" style="background: #ff0055; color:#fff;" onclick="rechazarFuncion(${funcionDetectada.id})">❌ Rechazar</button>
                         </div>
-                    `;
-                } else {
-                    log.innerHTML += `<br><span style="color:#ff00ff;">[Notificación]:</span> ¡Nueva función detectada! Módulo "Alertas de Donación QR".`;
-                    log.scrollTop = log.scrollHeight;
-
-                    propuestas.innerHTML = `
-                        <div class="panel" id="propuesta-2" style="border-color: #ff00ff; background: rgba(20, 5, 25, 0.9);">
-                            <h3 style="color: #ff00ff;">⚡ Propuesta Pendiente #2: Alertas QR Mercado Pago</h3>
-                            <p style="font-size: 9px; color: #fff; margin-bottom: 8px;">El bot detectó pasarela de pagos QR en tiempo real. ¿Deseas aplicarla en tu plataforma?</p>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                                <button class="cyber-btn" style="background: #00ffcc; color:#000;" onclick="aceptarFuncion(2)">✅ Aceptar & Aplicar</button>
-                                <button class="cyber-btn" style="background: #ff0055; color:#fff;" onclick="rechazarFuncion(2)">❌ Rechazar</button>
-                            </div>
-                        </div>
-                    `;
-                }
-            }, 900);
+                    </div>
+                `;
+            }, 800);
         }
 
         function aceptarFuncion(id) {
@@ -278,39 +299,22 @@
             let zonaModulos = document.getElementById('dinamic-modules-zone');
             let log = document.getElementById('consola-log');
 
-            propuestas.innerHTML = ""; // Limpiar tarjeta de propuesta
+            let funcionAceptada = bancoNuevasFunciones.find(f => f.id === id);
+            propuestas.innerHTML = "";
 
-            if(id === 1) {
-                log.innerHTML += `<br><span style="color:#00ffcc;">[Sistema]:</span> ¡Función #1 aceptada por Ángel! Inyectando widget en la plataforma...`;
-                log.scrollTop = log.scrollHeight;
+            log.innerHTML += `<br><span style="color:#00ffcc;">[Instalación]:</span> Módulo aprobado por Ángel. Integrando al núcleo...`;
+            log.scrollTop = log.scrollHeight;
 
-                zonaModulos.innerHTML += `
-                    <div class="panel" style="border-color: #00ffcc; margin-top: 10px;">
-                        <h3 style="color: #00ffcc;">💬 Módulo Activo: Chat Unificado (Kick & TikTok)</h3>
-                        <div style="background: rgba(0,0,0,0.8); padding: 8px; border-radius: 6px; font-size: 8px; font-family: 'Courier New', monospace; height: 60px; overflow-y: auto;">
-                            <span style="color:#00ffcc;">[Kick - SubaruNoobs]:</span> ¡Conexión aceptada por el Comandante! 🚀<br>
-                            <span style="color:#ff00ff;">[TikTok - Viewer99]:</span> ¡Chat operativo en tiempo real!<br>
-                        </div>
-                    </div>
-                `;
-            } else {
-                log.innerHTML += `<br><span style="color:#00ffcc;">[Sistema]:</span> ¡Función #2 aceptada por Ángel! Inyectando panel de pagos...`;
-                log.scrollTop = log.scrollHeight;
-
-                zonaModulos.innerHTML += `
-                    <div class="panel" style="border-color: #00ffcc; margin-top: 10px;">
-                        <h3 style="color: #00ffcc;">⚡ Módulo Activo: Alertas Mercado Pago QR</h3>
-                        <p style="font-size: 8px; color: #fff;">Estado: Escaneo de cobros QR activo y operando.</p>
-                    </div>
-                `;
-            }
+            zonaModulos.innerHTML += funcionAceptada.html;
+            indiceFuncionActual++;
         }
 
         function rechazarFuncion(id) {
             document.getElementById('propuestas-zone').innerHTML = "";
             let log = document.getElementById('consola-log');
-            log.innerHTML += `<br><span style="color:#ff0055;">[Sistema]:</span> Propuesta #${id} rechazada por el administrador.`;
+            log.innerHTML += `<br><span style="color:#ff0055;>[Sistema]:</span> Propuesta descartada. Buscando alternativas en el próximo escaneo.`;
             log.scrollTop = log.scrollHeight;
+            indiceFuncionActual++;
         }
 
         function emitirPrestamoLegal() {
@@ -323,7 +327,7 @@
         }
 
         function limpiarConsola() {
-            document.getElementById('consola-log').innerHTML = `[Subaru IA v2.5]: Consola limpia. Monitoreo activo...`;
+            document.getElementById('consola-log').innerHTML = `[Subaru IA v3.0]: Consola limpia. Monitoreo activo...`;
         }
     </script>
 </body>
