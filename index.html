@@ -135,11 +135,6 @@
             100% { opacity: 0.3; }
         }
         .live-indicator { animation: blinkPulse 2s infinite; color: #ff00ff; font-weight: bold; }
-
-        /* ESTILOS DEL CHAT UNIFICADO */
-        .chat-message { font-size: 9px; margin-bottom: 3px; font-family: 'Courier New', monospace; }
-        .chat-user-kick { color: #00ffcc; font-weight: bold; }
-        .chat-user-tiktok { color: #ff00ff; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -222,7 +217,7 @@
                 </div>
             </div>
 
-            <!-- Aquí se inyectarán los módulos funcionales reales -->
+            <!-- Zona donde aparecerán los módulos funcionales inyectados -->
             <div id="dinamic-modules-zone"></div>
         </div>
     </div>
@@ -247,4 +242,111 @@
 
         const particles = Array.from({ length: 35 }, () => ({
             x: Math.random() * width, y: Math.random() * height,
-            vx: (Math.random() - 0.5) * 0.6, vy:
+            vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6, radius: Math.random() * 2 + 1
+        }));
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = '#00ffcc'; ctx.strokeStyle = 'rgba(0, 255, 204, 0.1)';
+            particles.forEach((p, i) => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fill();
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    if (Math.hypot(p.x - p2.x, p.y - p2.y) < 100) {
+                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+
+        const feedLive = [
+            "Escaneando APIs de Kick, TikTok Studio y Discord...",
+            "Analizando pasarelas de Botrix, OBS y Marcos Overlays...",
+            "Verificando flujos de YouTube, Facebook, Instagram y Mercado Pago..."
+        ];
+
+        function iniciarRadarAutonomo() {
+            let radarLog = document.getElementById('radar-status');
+            let index = 0;
+            setInterval(() => {
+                if(radarLog) {
+                    radarLog.innerHTML = `[Live Sync]: ${feedLive[index]} <span class="live-indicator">● EN VIVO</span>`;
+                    index = (index + 1) % feedLive.length;
+                }
+            }, 3500);
+        }
+        window.onload = iniciarRadarAutonomo;
+
+        let modulosInyectadosContador = 0;
+
+        function ejecutarAuditoriaYActualizacionReal() {
+            let log = document.getElementById('consola-log');
+            let zonaModulos = document.getElementById('dinamic-modules-zone');
+            
+            log.innerHTML += `<br><span style="color:#00ffcc;">[Bot Live]:</span> Analizando carencias en Kick, TikTok, OBS y Botrix...`;
+            log.scrollTop = log.scrollHeight;
+
+            setTimeout(() => {
+                modulosInyectadosContador++;
+                
+                if(modulosInyectadosContador === 1) {
+                    log.innerHTML += `<br><span style="color:#ff00ff;">[Hallazgo]:</span> Falta el widget de "Chat Unificado en Vivo". Inyectando componente...`;
+                    log.scrollTop = log.scrollHeight;
+                    
+                    zonaModulos.innerHTML += `
+                        <div class="panel" style="border-color: #ff00ff; margin-top: 10px;">
+                            <h3 style="color: #ff00ff;">💬 Widget Inyectado: Chat Unificado (Kick & TikTok)</h3>
+                            <div style="background: rgba(0,0,0,0.8); padding: 8px; border-radius: 6px; font-size: 8px; font-family: 'Courier New', monospace; height: 60px; overflow-y: auto;">
+                                <span style="color:#00ffcc;">[Kick - SubaruNoobs]:</span> ¡Hola chat, bienvenidos al stream! ✨<br>
+                                <span style="color:#ff00ff;">[TikTok - Viewer99]:</span> ¡Tremenda plataforma Comandante!<br>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    log.innerHTML += `<br><span style="color:#ff00ff;">[Hallazgo]:</span> Falta la herramienta "Control de Alertas de Donación QR". Inyectando...`;
+                    log.scrollTop = log.scrollHeight;
+                    
+                    zonaModulos.innerHTML += `
+                        <div class="panel" style="border-color: #00ffcc; margin-top: 10px;">
+                            <h3 style="color: #00ffcc;">⚡ Widget Inyectado: Alertas Mercado Pago QR</h3>
+                            <p style="font-size: 8px; color: #fff;">Estado: Escaneando transacciones entrantes en tiempo real.</p>
+                        </div>
+                    `;
+                }
+            }, 800);
+        }
+
+        function emitirPrestamoLegal() {
+            let solicitante = document.getElementById('solicitante').value.trim();
+            let monto = document.getElementById('monto-prestamo').value.trim();
+            if (!solicitante || !monto) { alert("Completa los campos."); return; }
+            alert(`Contrato legal emitido para ${solicitante} por $${monto} USD.`);
+            document.getElementById('solicitante').value = "";
+            document.getElementById('monto-prestamo').value = "";
+        }
+
+        function procesarComandoBot() {
+            let input = document.getElementById('orden-usuario');
+            let texto = input.value.trim();
+            let log = document.getElementById('consola-log');
+            if (!texto) return;
+            log.innerHTML += `<br><span style="color:#ff00ff;">[Ángel]:</span> ${texto}`;
+            log.scrollTop = log.scrollHeight;
+            setTimeout(() => {
+                log.innerHTML += `<br><span style="color:#00ffcc;">[Subaru IA]:</span> Comando procesado exitosamente en el núcleo.`;
+                log.scrollTop = log.scrollHeight;
+                input.value = "";
+            }, 400);
+        }
+
+        function limpiarConsola() {
+            document.getElementById('consola-log').innerHTML = `[Live Core v2.0]: Consola limpia. Monitoreo activo...`;
+        }
+    </script>
+</body>
+</html>
