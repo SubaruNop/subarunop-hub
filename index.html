@@ -68,7 +68,6 @@
             background: rgba(8, 12, 28, 0.85); backdrop-filter: blur(10px);
             border: 1px solid rgba(0, 255, 204, 0.3); border-radius: 14px; padding: 16px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); position: relative; overflow: hidden; margin-bottom: 12px;
-            transition: all 0.4s ease;
         }
         .panel::before {
             content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
@@ -103,6 +102,9 @@
             display: inline-flex; padding: 4px 8px; border-radius: 4px; font-size: 7px; 
             font-family: 'Orbitron', sans-serif; background: rgba(255, 0, 255, 0.15); color: #ff00ff; border: 1px solid #ff00ff;
         }
+        .proposal-card {
+            background: rgba(0, 10, 25, 0.95); border: 1px dashed #ff00ff; padding: 12px; border-radius: 10px; margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -116,7 +118,7 @@
                 <h1>⚡ SUBARUNOP LIVE SYNC CORE</h1>
                 <p>Admin: Ángel Barreto | Autonomous AI Engine</p>
             </div>
-            <div class="platform-badge">🔴 NÚCLEO SINCRONIZADO</div>
+            <div class="platform-badge" id="sync-status">🔴 MERODEANDO EN VIVO</div>
         </header>
 
         <div class="nav-tabs">
@@ -129,7 +131,6 @@
         <div id="view-tesoreria" class="view-section active">
             <div class="panel">
                 <h3>💰 Tesorería Global & Pagos (Mercado Pago)</h3>
-                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Control unificado de capital, QR y transferencias en tiempo real.</p>
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; font-size: 8px;">
                     <div class="metric-box">USD GLOBAL<br><b class="metric-value">$14,850.00</b></div>
                     <div class="metric-box" style="border-color: #7000ff;">PASIVO<br><b class="metric-value" style="text-shadow: 0 0 8px #7000ff;">$3,420.00</b></div>
@@ -154,48 +155,47 @@
         <div id="view-radar" class="view-section">
             <div class="panel" style="border-color: #00ffcc;">
                 <h3 style="color: #00ffcc;">📡 Radar Multiplataforma Live</h3>
-                <div id="radar-status" style="background: rgba(0, 5, 15, 0.9); padding: 12px; border-radius: 8px; font-size: 9px; color: #00ffcc; border: 1px solid #00ffcc; font-family: 'Courier New', monospace; min-height: 80px;">
-                    [Live Sync]: Enlace seguro establecido... <span style="color:#ff00ff; font-weight:bold;">● EN VIVO</span>
+                <div style="background: rgba(0, 5, 15, 0.9); padding: 12px; border-radius: 8px; font-size: 9px; color: #00ffcc; border: 1px solid #00ffcc; font-family: 'Courier New', monospace;">
+                    [Live Sync]: Escaneando nodos externos en Kick y TikTok... <span style="color:#ff00ff; font-weight:bold;">● ACTIVO</span>
                 </div>
             </div>
         </div>
 
         <div id="view-bot" class="view-section">
             <div class="panel">
-                <h3>🤖 Bot Autónomo & Núcleo Sincronizado</h3>
-                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Todos los sistemas principales se encuentran operativos y sincronizados:</p>
+                <h3>🤖 Bot Autónomo & Merodeo en Tiempo Real</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">El bot escanea el entorno de forma continua y detecta funciones para incorporar:</p>
                 
-                <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 100px; overflow-y: auto; font-family: 'Courier New', monospace;">
-                    [Subaru AI v5.2]: Sincronización global PC y Celular establecida con éxito...
+                <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 80px; overflow-y: auto; font-family: 'Courier New', monospace; margin-bottom: 10px;">
+                    [Subaru AI v5.3]: Motor autónomo inicializado...
                 </div>
+
+                <button class="cyber-btn" style="background:#ff00ff; color:#fff;" onclick="restablecerNucleo()">🔄 Restablecer Backup del Núcleo</button>
             </div>
 
-            <!-- Zona de Módulos Activos (Sincronizados Globalmente) -->
-            <div id="dinamic-modules-zone">
-                <h4 style="font-family:'Orbitron'; font-size:10px; margin-bottom:8px; color:#fff;">🧬 Módulos Activos en el Sistema:</h4>
-                <div class="panel" style="border-color: #00ffcc; margin-bottom: 6px;">
-                    <h3 style="color: #00ffcc; font-size:10px;">💬 Chat Unificado (Kick & TikTok)</h3>
-                </div>
-                <div class="panel" style="border-color: #00ffcc; margin-bottom: 6px;">
-                    <h3 style="color: #00ffcc; font-size:10px;">⚡ Alertas Mercado Pago QR</h3>
-                </div>
-                <div class="panel" style="border-color: #00ffcc; margin-bottom: 6px;">
-                    <h3 style="color: #00ffcc; font-size:10px;">📊 Analíticas de Audiencia Activas</h3>
-                    <p style="font-size: 8px; color: #fff;">Monitoreando picos de espectadores y retención cross-stream.</p>
-                </div>
-                <div class="panel" style="border-color: #ff00ff; margin-bottom: 6px;">
-                    <h3 style="color: #ff00ff; font-size:10px;">🛡️ Moderación Anti-Spam Activa</h3>
-                    <p style="font-size: 8px; color: #fff;">Filtro de IA operando y bloqueando enlaces maliciosos.</p>
-                </div>
-                <div class="panel" style="border-color: #00ffcc; margin-bottom: 6px;">
-                    <h3 style="color: #00ffcc; font-size:10px;">🎯 Barra de Metas en Vivo</h3>
-                    <p style="font-size: 8px; color: #fff;">Progreso de donaciones y metas sincronizado con la tesorería.</p>
+            <!-- Zona Dinámica de Propuestas del Bot -->
+            <div id="proposal-zone"></div>
+
+            <!-- Módulos Ya Integrados en la Plataforma -->
+            <div class="panel" style="border-color: #00ffcc;">
+                <h3 style="color: #00ffcc;">🧬 Módulos Activos en el Sistema</h3>
+                <div id="integrated-modules-list" style="font-size: 9px; color: #fff;">
+                    <!-- Se cargan dinámicamente -->
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Lista base de posibles funciones que el bot puede descubrir analizando plataformas
+        const poolPropuestas = [
+            { id: 'chat_unificado', titulo: '💬 Chat Unificado (Kick & TikTok)', desc: 'Fusión de chats en tiempo real con moderación cruzada.' },
+            { id: 'alertas_mp', titulo: '⚡ Alertas Mercado Pago QR', desc: 'Notificaciones visuales y sonoras automáticas por cobros QR.' },
+            { id: 'analiticas_aud', titulo: '📊 Analíticas de Audiencia Activas', desc: 'Monitoreo de retención y picos de espectadores por merodeo.' },
+            { id: 'antispam', titulo: '🛡️ Moderación Anti-Spam Activa', desc: 'Filtro de IA para bloqueo inmediato de enlaces maliciosos.' },
+            { id: 'barra_metas', titulo: '🎯 Barra de Metas en Vivo', desc: 'Progreso sincronizado de donaciones directo a tesorería.' }
+        ];
+
         function cambiarVista(nombreVista, btnElement) {
             document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -203,21 +203,105 @@
             btnElement.classList.add('active');
         }
 
+        function obtenerEstado() {
+            let integradas = JSON.parse(localStorage.getItem('subaru_integradas')) || [];
+            let pendientes = JSON.parse(localStorage.getItem('subaru_pendientes')) || null;
+            return { integradas, pendientes };
+        }
+
+        function guardarEstado(integradas, pendientes) {
+            localStorage.setItem('subaru_integradas', JSON.stringify(integradas));
+            localStorage.setItem('subaru_pendientes', JSON.stringify(pendientes));
+        }
+
+        function renderizarSistema() {
+            let { integradas, pendientes } = obtenerEstado();
+            
+            // Si no hay nada integrado ni pendiente, el bot elige una propuesta para analizar
+            if (integradas.length === 0 && !pendientes) {
+                let disponibles = poolPropuestas.filter(p => !integradas.includes(p.id));
+                if (disponibles.length > 0) {
+                    pendientes = disponibles[Math.floor(Math.random() * disponibles.length)];
+                    guardarEstado(integradas, pendientes);
+                }
+            }
+
+            // Renderizar propuestas pendientes en el Bot Core
+            let proposalZone = document.getElementById('proposal-zone');
+            if (pendientes) {
+                proposalZone.innerHTML = `
+                    <div class="proposal-card">
+                        <h4 style="font-family:'Orbitron'; font-size:10px; color:#ff00ff; margin-bottom:4px;">⚡ Propuesta en Tiempo Real encontrada:</h4>
+                        <p style="font-size:9px; color:#fff; margin-bottom:8px;"><b>${pendientes.titulo}</b> - ${pendientes.desc}</p>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                            <button class="cyber-btn" style="background:#00ffcc; color:#000; margin:0;" onclick="integrarPropuesta()">✅ Confirmar & Integrar</button>
+                            <button class="cyber-btn" style="background:#ff0055; color:#fff; margin:0;" onclick="descartarPropuesta()">❌ Descartar</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                proposalZone.innerHTML = `<p style="font-size:9px; color:#8be9fd; text-align:center; padding:10px;">[Bot]: Escaneando nuevas funciones en plataformas externas...</p>`;
+            }
+
+            // Renderizar módulos integrados
+            let listContainer = document.getElementById('integrated-modules-list');
+            if (integradas.length === 0) {
+                listContainer.innerHTML = `<span style="color:#8be9fd;">Ningún módulo integrado todavía. Revisa el Bot Core para aceptar las propuestas de análisis.</span>`;
+            } else {
+                let html = '';
+                integradas.forEach(idMod => {
+                    let mod = poolPropuestas.find(p => p.id === idMod);
+                    if (mod) {
+                        html += `<div style="background:rgba(0,255,204,0.1); border:1px solid #00ffcc; padding:8px; border-radius:6px; margin-bottom:6px;">
+                            <b>${mod.titulo}</b><br><span style="font-size:8px; color:#8be9fd;">${mod.desc}</span>
+                        </div>`;
+                    }
+                });
+                listContainer.innerHTML = html;
+            }
+        }
+
+        function integrarPropuesta() {
+            let { integradas, pendientes } = obtenerEstado();
+            if (pendientes) {
+                integradas.push(pendientes.id);
+                pendientes = null; // Limpia la propuesta actual para que busque la siguiente
+                guardarEstado(integradas, pendientes);
+                renderizarSistema();
+            }
+        }
+
+        function descartarPropuesta() {
+            let { integradas } = obtenerEstado();
+            guardarEstado(integradas, null);
+            renderizarSistema();
+        }
+
+        function restablecerNucleo() {
+            localStorage.removeItem('subaru_integradas');
+            localStorage.removeItem('subaru_pendientes');
+            renderizarSistema();
+            alert("Núcleo restablecido. El bot comenzó un nuevo ciclo de análisis.");
+        }
+
+        // Inicializar al cargar la página
+        window.onload = () => {
+            renderizarSistema();
+        };
+
+        // Fondo animado de partículas
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
-
         window.addEventListener('resize', () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
         });
-
-        const particles = Array.from({ length: 35 }, () => ({
+        const particles = Array.from({ length: 30 }, () => ({
             x: Math.random() * width, y: Math.random() * height,
-            vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6, radius: Math.random() * 2 + 1
+            vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5, radius: Math.random() * 2 + 1
         }));
-
         function drawParticles() {
             ctx.clearRect(0, 0, width, height);
             ctx.fillStyle = '#00ffcc'; ctx.strokeStyle = 'rgba(0, 255, 204, 0.1)';
@@ -226,25 +310,10 @@
                 if (p.x < 0 || p.x > width) p.vx *= -1;
                 if (p.y < 0 || p.y > height) p.vy *= -1;
                 ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fill();
-                for (let j = i + 1; j < particles.length; j++) {
-                    const p2 = particles[j];
-                    if (Math.hypot(p.x - p2.x, p.y - p2.y) < 100) {
-                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
-                    }
-                }
             });
             requestAnimationFrame(drawParticles);
         }
         drawParticles();
-
-        function emitirPrestamoLegal() {
-            let solicitante = document.getElementById('solicitante').value.trim();
-            let monto = document.getElementById('monto-prestamo').value.trim();
-            if (!solicitante || !monto) { alert("Completa los campos."); return; }
-            alert(`Contrato legal emitido para ${solicitante} por $${monto} USD.`);
-            document.getElementById('solicitante').value = "";
-            document.getElementById('monto-prestamo').value = "";
-        }
     </script>
 </body>
 </html>
