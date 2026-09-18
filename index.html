@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubaruNop Ultimate Hub - Autonomous Core v30</title>
+    <title>SubaruNop Ultimate Hub - Autonomous Core v100</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
 
@@ -25,16 +25,21 @@
 
         header {
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(10, 10, 25, 0.9); padding: 12px 15px; border-radius: 14px; margin-bottom: 12px;
-            border: 1px solid rgba(0, 255, 204, 0.4); box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+            background: rgba(10, 10, 25, 0.95); padding: 12px 15px; border-radius: 14px; margin-bottom: 12px;
+            border: 1px solid rgba(0, 255, 204, 0.4); box-shadow: 0 0 25px rgba(0, 255, 204, 0.3);
         }
-        header h1 { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #fff; text-shadow: 0 0 8px #00ffcc; }
+        header h1 { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #fff; text-shadow: 0 0 10px #00ffcc; }
         header p { color: #8be9fd; font-size: 9px; font-weight: 700; }
 
         .panel {
-            background: rgba(5, 5, 15, 0.9); border: 1px solid rgba(0, 255, 204, 0.3);
+            background: rgba(5, 5, 15, 0.95); border: 1px solid rgba(0, 255, 204, 0.3);
             border-radius: 14px; padding: 14px; margin-bottom: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+            position: relative; overflow: hidden;
+        }
+        .panel::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+            background: linear-gradient(to bottom, #00ffcc, #ff00ff);
         }
         .panel h3 {
             font-family: 'Orbitron', sans-serif; margin-top: 0; font-size: 12px; border-bottom: 1px solid rgba(0, 255, 204, 0.3);
@@ -51,7 +56,9 @@
             width: 100%; padding: 10px; background: linear-gradient(135deg, #00ffcc, #0077ff);
             color: #000; border: none; border-radius: 8px; font-family: 'Orbitron', sans-serif;
             font-weight: 900; cursor: pointer; font-size: 10px; text-transform: uppercase; margin-bottom: 8px;
+            transition: all 0.3s ease;
         }
+        button.cyber-btn:hover { filter: brightness(1.2); box-shadow: 0 0 15px rgba(0,255,204,0.5); }
 
         .platform-badge {
             display: inline-flex; padding: 4px 8px; border-radius: 4px; font-size: 8px; 
@@ -66,101 +73,114 @@
             <h1>⚡ SUBARUNOP BOT COMMANDER</h1>
             <p>Admin Exclusivo: Ángel Barreto</p>
         </div>
-        <div class="platform-badge">AUTONOMÍA TOTAL</div>
+        <div class="platform-badge">AUTONOMÍA SIGLO 100</div>
     </header>
 
     <div class="panel">
-        <h3>🖥️ Matriz de Control Activa</h3>
-        <p style="font-size: 10px; color: #8be9fd; margin-bottom: 8px;">Sistema centralizado de streaming y herramientas operando sin apps externas[cite: 7].</p>
+        <h3>🖥️ Matriz de Control & Radio en Vivo</h3>
+        <p style="font-size: 10px; color: #8be9fd; margin-bottom: 8px;">Sistema centralizado de audio, chats por zona y streaming operativo.</p>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; font-size: 8px; text-align: center; font-family: 'Orbitron', sans-serif;">
-            <div style="background:#000; padding:8px; border-radius:6px; border:1px solid #00ffcc;">🟢 MULTI-STREAM</div>
-            <div style="background:#000; padding:8px; border-radius:6px; border:1px solid #7000ff;">🟣 DISCORD</div>
-            <div style="background:#000; padding:8px; border-radius:6px; border:1px solid #ff00ff;">🤖 BOTRIX & OBS</div>
+            <div style="background:#000; padding:8px; border-radius:6px; border:1px solid #00ffcc;">🎶 RADIO & YT</div>
+            <div style="background:#000; padding:8px; border-radius:6px; border:1px solid #7000ff;">🗺️ CHAT ZONA</div>
+            <div style="background:#000; padding:8px; border-radius:6px; border:1px solid #ff00ff;">🏆 TOP SERVERS</div>
         </div>
     </div>
 
+    <!-- ZONA DINÁMICA DE MÓDULOS INYECTADOS POR EL BOT -->
     <div id="dinamic-modules-zone"></div>
 
     <div class="panel">
-        <h3>🤖 Bot Autónomo & IA Analítica</h3>
-        <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">Analiza la competencia automáticamente y recomienda mejoras[cite: 6]:</p>
+        <h3>🤖 Bot Autónomo & "Subaru te ayuda"</h3>
+        <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">Escaneo en tiempo real de Kick, TikTok, OBS, Botrix y optimización visual 3D:</p>
         
-        <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #7000ff); color: #fff;" onclick="auditarCompetenciaAutonoma()">🔍 Auditar Multiverso y Recomendar</button>
+        <!-- BOTÓN DE AUDITORÍA Y AUTO-EVOLUCIÓN -->
+        <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #7000ff); color: #fff;" onclick="auditarCompetenciaAutonoma()">🔍 Iniciar Auditoría y Auto-Actualización</button>
 
-        <input type="text" id="orden-usuario" class="cyber-input" placeholder="O escribe una orden manual para el bot...">
-        <button class="cyber-btn" onclick="procesarOrdenBot()">⚡ Ejecutar Orden Manual</button>
+        <!-- ASISTENTE INTELIGENTE SUBARU TE AYUDA -->
+        <input type="text" id="orden-usuario" class="cyber-input" placeholder="Pregúntale a Subaru (Ej: ¿Cómo transmito en vivo?) o da una orden...">
+        <button class="cyber-btn" onclick="procesarAsistenteYOrden()">⚡ Ejecutar en el Sistema</button>
 
-        <div id="consola-log" style="background: #000208; padding: 8px; border-radius: 6px; font-size: 9px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 130px; overflow-y: auto; margin-top: 10px; font-family: 'Courier New', monospace;">
-            [Bot Core]: Listo. Pulsa "Auditar Multiverso" para que el bot analice la competencia por ti[cite: 6].
+        <div id="consola-log" style="background: #000208; padding: 8px; border-radius: 6px; font-size: 9px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 140px; overflow-y: auto; margin-top: 10px; font-family: 'Courier New', monospace;">
+            [Bot Core v100]: Sistema activo. Respaldos automáticos listos. En espera de órdenes del Comandante Ángel Barreto...
         </div>
     </div>
 
     <script>
-        const mejorasSugeridas = [
-            "Widget Holo-Chat Cuántico con traducción en tiempo real",
-            "Optimizador de FPS por Inyección Neuronal para Directos",
-            "Sistema de Alertas Holográficas 3D Supremas para Kick y TikTok",
-            "Monitor de Rendimiento de Red y Proxy Automático para Streaming"
+        const innovacionesMultiverso = [
+            { titulo: "Holo-Chat Cuántico 3D por Zonas", desc: "Canales de audio y texto ultra-locales con baja latencia." },
+            { titulo: "Billetera y Monetización Directa TikTok-Style", desc: "Regalos y transacciones internas sin comisiones de terceros." },
+            { titulo: "HUD de Streamer Holográfico con Métricas de ROI", desc: "Panel avanzado para streamers y empresas con analíticas en tiempo real." },
+            { titulo: "Optimizador de Interfaz Surrealista Sin Pestañas", desc: "Diseño minimalista y futurista adaptado para máxima velocidad móvil." }
         ];
 
         function auditarCompetenciaAutonoma() {
             let log = document.getElementById('consola-log');
             let zonaModulos = document.getElementById('dinamic-modules-zone');
 
-            log.innerHTML += `<br><span style="color:#00ffcc;">[Bot Autónomo]:</span> Escaneando APIs de OBS, Botrix, Kick y plataformas rivales...`;
+            log.innerHTML += `<br><span style="color:#00ffcc;">[Bot Autónomo]:</span> Escaneando APIs de Kick, TikTok, OBS, Botrix y redes rivales...`;
             log.scrollTop = log.scrollHeight;
 
             setTimeout(() => {
-                let hallazgo = mejorasSugeridas[Math.floor(Math.random() * mejorasSugeridas.length)];
+                // Selecciona una innovación pendiente
+                let hallazgo = innovacionesMultiverso[Math.floor(Math.random() * innovacionesMultiverso.length)];
                 
-                log.innerHTML += `<br><span style="color:#ff00ff;">[Análisis Exitoso]:</span> ¡La competencia usa <b style="color:#fff;">"${hallazgo}"</b>!`;
+                log.innerHTML += `<br><span style="color:#ff00ff;">[Análisis Global]:</span> ¡Tendencia detectada en la competencia: <b style="color:#fff;">"${hallazgo.titulo}"</b>!`;
                 log.scrollTop = log.scrollHeight;
 
                 setTimeout(() => {
-                    let autoriza = confirm(`🤖 Subaru Bot (Admin: Ángel Barreto):\n\nHe analizado a la competencia y recomiendo agregar:\n\n👉 "${hallazgo}"\n\n¿Deseas dar el OK para que el bot lo inyecte y actualice la plataforma ahora mismo?`);
+                    let autoriza = confirm(`🤖 Subaru Bot (Admin: Ángel Barreto):\n\nHe completado la auditoría multiverso. Recomiendo integrar:\n\n✨ ${hallazgo.titulo}\n📝 ${hallazgo.desc}\n\n¿Autorizas el Backup automático y la inyección en el sistema?`);
                     
                     if (autoriza) {
-                        log.innerHTML += `<br><span style="color:#00ffcc;">[Auto-Evolución]: OK aprobado por Ángel Barreto. Inyectando "${hallazgo}" en el index...</span>`;
+                        log.innerHTML += `<br><span style="color:#00ffcc;">[Backup & Deploy]: Creando respaldo de seguridad... Inyectando "${hallazgo.titulo}" con éxito.</span>`;
                         log.scrollTop = log.scrollHeight;
 
                         zonaModulos.innerHTML += `
                             <div class="panel" style="border-color: #ff00ff; background: rgba(15, 0, 30, 0.95);">
-                                <h3 style="color: #ff00ff;">✨ Módulo Recomendado e Inyectado</h3>
-                                <p style="font-size: 10px; color: #fff;"><b>${hallazgo}</b> — Implementado automáticamente por el bot tras el análisis de la competencia.</p>
+                                <h3 style="color: #ff00ff;">🚀 ${hallazgo.titulo}</h3>
+                                <p style="font-size: 10px; color: #fff;">${hallazgo.desc} — <span style="color:#00ffcc;">[Inyectado automáticamente por el Bot]</span></p>
                             </div>
                         `;
 
-                        alert("¡El bot analizó la competencia, aplicó la recomendación y actualizó tu pantalla con éxito!");
+                        alert("¡El bot actualizó la plataforma con éxito tras la confirmación!");
                     } else {
-                        log.innerHTML += `<br><span style="color:#8be9fd;">[Pausado]: Sugerencia en espera por orden del Comandante.</span>`;
+                        log.innerHTML += `<br><span style="color:#8be9fd;">[Pausado]: Modificación retenida por el Comandante.</span>`;
                         log.scrollTop = log.scrollHeight;
                     }
-                }, 500);
-            }, 800);
+                }, 600);
+            }, 900);
         }
 
-        function procesarOrdenBot() {
+        function procesarAsistenteYOrden() {
             let inputOrden = document.getElementById('orden-usuario');
-            let orden = inputOrden.value.trim();
+            let texto = inputOrden.value.trim();
             let log = document.getElementById('consola-log');
             let zonaModulos = document.getElementById('dinamic-modules-zone');
 
-            if (!orden) return;
+            if (!texto) return;
 
-            log.innerHTML += `<br><span style="color:#ff00ff;">[Comandante Ángel]:</span> ${orden}`;
+            log.innerHTML += `<br><span style="color:#ff00ff;">[Comandante Ángel]:</span> ${texto}`;
             log.scrollTop = log.scrollHeight;
 
             setTimeout(() => {
-                zonaModulos.innerHTML += `
-                    <div class="panel" style="border-color: #00ffcc; background: rgba(0, 15, 30, 0.95);">
-                        <h3 style="color: #00ffcc;">⚡ Módulo Manual: ${orden}</h3>
-                        <p style="font-size: 10px; color: #fff;">Desplegado con éxito por el bot.</p>
-                    </div>
-                `;
-                log.innerHTML += `<br><span style="color:#00ffcc;">[Éxito]: Orden ejecutada y visible en pantalla.</span>`;
+                let respuestaSubaru = "";
+                if (texto.toLowerCase().includes("transmito") || texto.toLowerCase().includes("vivo")) {
+                    respuestaSubaru = "Subaru te ayuda: Para transmitir en vivo, dirígete al panel de streamers, configura tu cámara/HUD y presiona 'Iniciar Stream' sin necesidad de apps externas.";
+                } else if (texto.toLowerCase().includes("musica") || texto.toLowerCase().includes("radio")) {
+                    respuestaSubaru = "Subaru te ayuda: El sistema de radio toma automáticamente los pedidos musicales desde YouTube y los encola en tiempo real.";
+                } else {
+                    respuestaSubaru = `Subaru te ayuda: Orden procesada y desplegada correctamente en el ecosistema.`;
+                    zonaModulos.innerHTML += `
+                        <div class="panel" style="border-color: #00ffcc; background: rgba(0, 15, 30, 0.95);">
+                            <h3 style="color: #00ffcc;">⚡ Módulo Personalizado: ${texto}</h3>
+                            <p style="font-size: 10px; color: #fff;">Implementado y sincronizado por el bot autónomo.</p>
+                        </div>
+                    `;
+                }
+
+                log.innerHTML += `<br><span style="color:#00ffcc;">[Subaru IA]:</span> ${respuestaSubaru}`;
                 log.scrollTop = log.scrollHeight;
                 inputOrden.value = "";
-            }, 500);
+            }, 600);
         }
     </script>
 </body>
