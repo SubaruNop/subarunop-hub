@@ -145,8 +145,8 @@
     <div class="container">
         <header>
             <div>
-                <h1>⚡ SUBARUNOP AUTONOMOUS CORE</h1>
-                <p>Admin: Ángel Barreto | Bot en Modo Autónomo</p>
+                <h1>⚡ SUBARUNOP MULTIPLATFORM CORE</h1>
+                <p>Admin: Ángel Barreto | Escaneo Global Activo</p>
             </div>
             <div id="device-indicator" class="platform-badge">AUTOPILOTO ACTIVO</div>
         </header>
@@ -161,12 +161,12 @@
         <!-- VISTA 1: TESORERÍA -->
         <div id="view-tesoreria" class="view-section active">
             <div class="panel">
-                <h3>💰 Tesorería Global & Ingresos Pasivos</h3>
-                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Control automatizado de capital y comisiones QR en tiempo real.</p>
+                <h3>💰 Tesorería Global & Pagos (Mercado Pago)</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Control unificado de capital, QR y transferencias en tiempo real.</p>
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; font-size: 8px;">
                     <div class="metric-box">USD GLOBAL<br><b class="metric-value">$14,850.00</b></div>
                     <div class="metric-box" style="border-color: #7000ff;">PASIVO<br><b class="metric-value" style="text-shadow: 0 0 8px #7000ff;">$3,420.00</b></div>
-                    <div class="metric-box" style="border-color: #ff00ff;">QR MP<br><b class="metric-value" style="text-shadow: 0 0 8px #ff00ff;">4.5% Activo</b></div>
+                    <div class="metric-box" style="border-color: #ff00ff;">MERCADO PAGO<br><b class="metric-value" style="text-shadow: 0 0 8px #ff00ff;">4.5% Activo</b></div>
                 </div>
             </div>
         </div>
@@ -190,10 +190,10 @@
         <!-- VISTA 3: RADAR -->
         <div id="view-radar" class="view-section">
             <div class="panel" style="border-color: #00ffcc;">
-                <h3 style="color: #00ffcc;">📡 Radar de Competencia en Tiempo Real</h3>
-                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">El bot analiza flujos externos y canales rivales segundo a segundo:</p>
+                <h3 style="color: #00ffcc;">📡 Radar Multiplataforma en Tiempo Real</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">Escaneando Kick, TikTok, YouTube, Discord, OBS, Overlays y Botrix:</p>
                 <div id="radar-status" style="background: rgba(0, 5, 15, 0.9); padding: 12px; border-radius: 8px; font-size: 9px; color: #00ffcc; border: 1px solid #00ffcc; font-family: 'Courier New', monospace; min-height: 80px;">
-                    [Bot Radar]: Monitoreando streams y métricas externas... <span class="live-indicator">● EN VIVO</span>
+                    [Bot Radar Global]: Analizando flujos de la red... <span class="live-indicator">● EN VIVO</span>
                 </div>
             </div>
         </div>
@@ -201,11 +201,11 @@
         <!-- VISTA 4: BOT CORE -->
         <div id="view-bot" class="view-section">
             <div class="panel">
-                <h3>🤖 Bot Autónomo & "Subaru te ayuda"</h3>
-                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Clasificador automático y soporte en vivo:</p>
+                <h3>🤖 Bot Autónomo & Auditoría Global</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Escaneo de funciones faltantes en plataformas externas:</p>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px;">
-                    <button class="cyber-btn" onclick="auditarYClasificarFuncion()">🔍 Auditar Competencia & Niveles</button>
+                    <button class="cyber-btn" onclick="auditarMultiplataforma()">🔍 Auditar Redes & Apps</button>
                     <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #00ffcc); color: #000;" onclick="limpiarConsola()">🧹 Limpiar Consola</button>
                 </div>
 
@@ -213,7 +213,7 @@
                 <button class="cyber-btn" onclick="procesarComandoBot()">⚡ Ejecutar Orden</button>
 
                 <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 110px; overflow-y: auto; margin-top: 6px; font-family: 'Courier New', monospace;">
-                    [Bot Financial Core]: Sistemas de cobro Mercado Pago (QR y Transferencias) vinculados. Listos para operar...
+                    [Multiplatform Core]: Conectado a Kick, TikTok Studio, Discord, OBS, YouTube, Facebook, Instagram, Overlays, Botrix y Mercado Pago. Listos para operar...
                 </div>
             </div>
 
@@ -263,11 +263,11 @@
         }
         drawParticles();
 
-        const objetivosCompetencia = [
-            "Analizando streams activos en Kick y plataformas rivales...",
-            "Detectando variaciones de espectadores y métricas externas...",
-            "Escaneando picos de interacción de canales de la competencia...",
-            "Optimizando parámetros tácticos del SubaruNop Commander..."
+        const objetivosRedes = [
+            "Escaneando APIs de Kick y TikTok Studio...",
+            "Analizando widgets de Botrix y Marcos Overlays en OBS...",
+            "Verificando flujos de interacción en Discord, YouTube y Facebook...",
+            "Sincronizando pasarela de pagos con Mercado Pago y Redes..."
         ];
 
         function iniciarRadarAutonomo() {
@@ -275,36 +275,37 @@
             let index = 0;
             setInterval(() => {
                 if(radarLog) {
-                    radarLog.innerHTML = `[Radar Live]: ${objetivosCompetencia[index]} <span class="live-indicator">● EN VIVO</span>`;
-                    index = (index + 1) % objetivosCompetencia.length;
+                    radarLog.innerHTML = `[Radar Global]: ${objetivosRedes[index]} <span class="live-indicator">● EN VIVO</span>`;
+                    index = (index + 1) % objetivosRedes.length;
                 }
             }, 3500);
         }
         window.onload = iniciarRadarAutonomo;
 
-        const funcionesMercado = [
-            { nombre: "HUD de Transmisión Cuántica 3D", nivel: "Élite / Premium" },
-            { nombre: "Sistema de Alertas de Audio por Zona", nivel: "Nivel 10 al 20" },
-            { nombre: "Chat Local con Filtro por Provincia", nivel: "Gratuito (Free)" }
+        const bancoModulosExternos = [
+            { nombre: "Widget de Alertas Dinámicas (Botrix Style)", origen: "Botrix / Kick" },
+            { nombre: "Overlay de Chat Flotante Transparente", origen: "OBS / Marcos Overlays" },
+            { nombre: "Sincronizador de Donaciones QR Automático", origen: "Mercado Pago" },
+            { nombre: "Filtro de Moderación Cruzada", origen: "Discord / TikTok Studio" }
         ];
 
-        function auditarYClasificarFuncion() {
+        function auditarMultiplataforma() {
             let log = document.getElementById('consola-log');
             let zonaModulos = document.getElementById('dinamic-modules-zone');
-            log.innerHTML += `<br><span style="color:#00ffcc;">[Bot Autónomo]:</span> Auditando competencia y clasificando niveles...`;
+            log.innerHTML += `<br><span style="color:#00ffcc;">[Bot Global]:</span> Escaneando Kick, TikTok, OBS, Botrix y Mercado Pago...`;
             log.scrollTop = log.scrollHeight;
 
             setTimeout(() => {
-                let item = funcionesMercado[Math.floor(Math.random() * funcionesMercado.length)];
-                log.innerHTML += `<br><span style="color:#ff00ff;">[Módulo Inyectado]:</span> "${item.nombre}" (${item.nivel}).`;
+                let item = bancoModulosExternos[Math.floor(Math.random() * bancoModulosExternos.length)];
+                log.innerHTML += `<br><span style="color:#ff00ff;">[Nueva Función Detectada]:</span> "${item.nombre}" (${item.origen}). Inyectando...`;
                 log.scrollTop = log.scrollHeight;
                 zonaModulos.innerHTML += `
                     <div class="panel" style="border-color: #ff00ff; margin-top: 10px;">
-                        <h3 style="color: #ff00ff;">📌 Módulo: ${item.nombre}</h3>
-                        <p style="font-size: 9px; color: #fff;">Nivel: <b>${item.nivel}</b></p>
+                        <h3 style="color: #ff00ff;">⚡ Módulo Integrado: ${item.nombre}</h3>
+                        <p style="font-size: 9px; color: #fff;">Origen Detectado: <b>${item.origen}</b></p>
                     </div>
                 `;
-            }, 500);
+            }, 600);
         }
 
         function emitirPrestamoLegal() {
@@ -324,14 +325,14 @@
             log.innerHTML += `<br><span style="color:#ff00ff;">[Ángel]:</span> ${texto}`;
             log.scrollTop = log.scrollHeight;
             setTimeout(() => {
-                log.innerHTML += `<br><span style="color:#00ffcc;">[Subaru IA]:</span> Orden ejecutada autónomamente en el sistema.`;
+                log.innerHTML += `<br><span style="color:#00ffcc;">[Subaru IA]:</span> Orden ejecutada y sincronizada con las plataformas.`;
                 log.scrollTop = log.scrollHeight;
                 input.value = "";
             }, 400);
         }
 
         function limpiarConsola() {
-            document.getElementById('consola-log').innerHTML = `[Bot Financial Core]: Consola optimizada y limpia. Listos para operar...`;
+            document.getElementById('consola-log').innerHTML = `[Multiplatform Core]: Consola limpia. Monitoreo global activo...`;
         }
     </script>
 </body>
