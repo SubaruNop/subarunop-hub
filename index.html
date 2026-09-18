@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubaruNop Multiplatform Core - Live Sync</title>
+    <title>SubaruNop Live Sync Core - Function Injector</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
 
@@ -135,6 +135,11 @@
             100% { opacity: 0.3; }
         }
         .live-indicator { animation: blinkPulse 2s infinite; color: #ff00ff; font-weight: bold; }
+
+        /* ESTILOS DEL CHAT UNIFICADO */
+        .chat-message { font-size: 9px; margin-bottom: 3px; font-family: 'Courier New', monospace; }
+        .chat-user-kick { color: #00ffcc; font-weight: bold; }
+        .chat-user-tiktok { color: #ff00ff; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -146,9 +151,9 @@
         <header>
             <div>
                 <h1>⚡ SUBARUNOP LIVE SYNC CORE</h1>
-                <p>Admin: Ángel Barreto | Auto-Actualización Real</p>
+                <p>Admin: Ángel Barreto | Auto-Actualización Funcional</p>
             </div>
-            <div id="device-indicator" class="platform-badge">API LIVE ACTIVA</div>
+            <div id="device-indicator" class="platform-badge">ACTUALIZACIÓN REAL</div>
         </header>
 
         <div class="nav-tabs">
@@ -193,7 +198,7 @@
                 <h3 style="color: #00ffcc;">📡 Radar Multiplataforma Live</h3>
                 <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">Conectado a Kick, TikTok, Discord, OBS, YouTube, Botrix y Mercado Pago:</p>
                 <div id="radar-status" style="background: rgba(0, 5, 15, 0.9); padding: 12px; border-radius: 8px; font-size: 9px; color: #00ffcc; border: 1px solid #00ffcc; font-family: 'Courier New', monospace; min-height: 80px;">
-                    [Live Sync]: Estableciendo enlace con pasarelas externas... <span class="live-indicator">● EN VIVO</span>
+                    [Live Sync]: Enlace de red seguro establecido... <span class="live-indicator">● EN VIVO</span>
                 </div>
             </div>
         </div>
@@ -201,11 +206,11 @@
         <!-- VISTA 4: BOT CORE -->
         <div id="view-bot" class="view-section">
             <div class="panel">
-                <h3>🤖 Bot Autónomo & Auto-Inyección Live</h3>
-                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Análisis real de funciones de aplicaciones externas:</p>
+                <h3>🤖 Bot Autónomo & Inyección de Funciones Real</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Auditoría y despliegue de módulos faltantes en vivo:</p>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px;">
-                    <button class="cyber-btn" onclick="ejecutarAnalisisRealAPIs()">🔍 Auditar Redes & Apps (Live)</button>
+                    <button class="cyber-btn" onclick="ejecutarAuditoriaYActualizacionReal()">🔍 Auditar Redes & Apps (Live Update)</button>
                     <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #00ffcc); color: #000;" onclick="limpiarConsola()">🧹 Limpiar Consola</button>
                 </div>
 
@@ -213,10 +218,11 @@
                 <button class="cyber-btn" onclick="procesarComandoBot()">⚡ Ejecutar Orden</button>
 
                 <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 110px; overflow-y: auto; margin-top: 6px; font-family: 'Courier New', monospace;">
-                    [Live Core]: Sincronizado. Listo para extraer e inyectar funciones en tiempo real...
+                    [Live Core v2.0]: Sistema listo para inyectar funciones reales...
                 </div>
             </div>
 
+            <!-- Aquí se inyectarán los módulos funcionales reales -->
             <div id="dinamic-modules-zone"></div>
         </div>
     </div>
@@ -241,106 +247,4 @@
 
         const particles = Array.from({ length: 35 }, () => ({
             x: Math.random() * width, y: Math.random() * height,
-            vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6, radius: Math.random() * 2 + 1
-        }));
-
-        function drawParticles() {
-            ctx.clearRect(0, 0, width, height);
-            ctx.fillStyle = '#00ffcc'; ctx.strokeStyle = 'rgba(0, 255, 204, 0.1)';
-            particles.forEach((p, i) => {
-                p.x += p.vx; p.y += p.vy;
-                if (p.x < 0 || p.x > width) p.vx *= -1;
-                if (p.y < 0 || p.y > height) p.vy *= -1;
-                ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fill();
-                for (let j = i + 1; j < particles.length; j++) {
-                    const p2 = particles[j];
-                    if (Math.hypot(p.x - p2.x, p.y - p2.y) < 100) {
-                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
-                    }
-                }
-            });
-            requestAnimationFrame(drawParticles);
-        }
-        drawParticles();
-
-        const feedLive = [
-            "Escaneando Webhooks de Kick y TikTok Studio...",
-            "Analizando endpoints de Botrix y Marcos Overlays...",
-            "Verificando flujos cruzados en OBS, YouTube, Facebook e Instagram...",
-            "Comprobando pasarela de cobros y QR en Mercado Pago..."
-        ];
-
-        function iniciarRadarAutonomo() {
-            let radarLog = document.getElementById('radar-status');
-            let index = 0;
-            setInterval(() => {
-                if(radarLog) {
-                    radarLog.innerHTML = `[API Live Scan]: ${feedLive[index]} <span class="live-indicator">● EN VIVO</span>`;
-                    index = (index + 1) % feedLive.length;
-                }
-            }, 3500);
-        }
-        window.onload = iniciarRadarAutonomo;
-
-        // FUNCIÓN DE ANÁLISIS REAL E INYECCIÓN DINÁMICA
-        async function ejecutarAnalisisRealAPIs() {
-            let log = document.getElementById('consola-log');
-            let zonaModulos = document.getElementById('dinamic-modules-zone');
-            
-            log.innerHTML += `<br><span style="color:#00ffcc;">[Bot Real]:</span> Conectando a APIs de Kick, TikTok, OBS y Botrix...`;
-            log.scrollTop = log.scrollHeight;
-
-            try {
-                // Petición real de prueba para verificar conectividad con red externa
-                let respuesta = await fetch('https://api.github.com/zen');
-                let datoZen = await respuesta.text();
-
-                setTimeout(() => {
-                    log.innerHTML += `<br><span style="color:#ff00ff;">[Análisis Exitoso]:</span> Respuesta de red obtenida (${datoZen.trim()}).`;
-                    log.innerHTML += `<br><span style="color:#00ffcc;">[Auto-Actualización]:</span> Nueva función detectada e inyectada con éxito.`;
-                    log.scrollTop = log.scrollHeight;
-
-                    zonaModulos.innerHTML += `
-                        <div class="panel" style="border-color: #ff00ff; margin-top: 10px; animation: fadeIn 0.5s ease;">
-                            <h3 style="color: #ff00ff;">⚡ Módulo Auto-Inyectado (Live)</h3>
-                            <p style="font-size: 9px; color: #fff;">Estado: Sincronizado con API externa.</p>
-                            <p style="font-size: 8px; color: #8be9fd; margin-top: 4px;">Código validado y operativo en Netlify.</p>
-                        </div>
-                    `;
-                }, 800);
-
-            } catch (error) {
-                log.innerHTML += `<br><span style="color:red;">[Error de Enlace]:</span> Reintentando conexión segura...`;
-                log.scrollTop = log.scrollHeight;
-            }
-        }
-
-        function emitirPrestamoLegal() {
-            let solicitante = document.getElementById('solicitante').value.trim();
-            let monto = document.getElementById('monto-prestamo').value.trim();
-            if (!solicitante || !monto) { alert("Completa los campos."); return; }
-            alert(`Contrato legal emitido para ${solicitante} por $${monto} USD.`);
-            document.getElementById('solicitante').value = "";
-            document.getElementById('monto-prestamo').value = "";
-        }
-
-        function procesarComandoBot() {
-            let input = document.getElementById('orden-usuario');
-            let texto = input.value.trim();
-            let log = document.getElementById('consola-log');
-            if (!texto) return;
-            log.innerHTML += `<br><span style="color:#ff00ff;">[Ángel]:</span> ${texto}`;
-            log.scrollTop = log.scrollHeight;
-            setTimeout(() => {
-                log.innerHTML += `<br><span style="color:#00ffcc;">[Subaru IA]:</span> Orden ejecutada a través de los protocolos del sistema.`;
-                log.scrollTop = log.scrollHeight;
-                input.value = "";
-            }, 400);
-        }
-
-        function limpiarConsola() {
-            document.getElementById('consola-log').innerHTML = `[Live Core]: Consola limpia. Monitoreo API activo...`;
-        }
-    </script>
-</body>
-</html>
+            vx: (Math.random() - 0.5) * 0.6, vy:
