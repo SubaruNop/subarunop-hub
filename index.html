@@ -103,7 +103,13 @@
             font-family: 'Orbitron', sans-serif; background: rgba(255, 0, 255, 0.15); color: #ff00ff; border: 1px solid #ff00ff;
         }
         .proposal-card {
-            background: rgba(0, 10, 25, 0.95); border: 1px dashed #ff00ff; padding: 12px; border-radius: 10px; margin-bottom: 10px;
+            background: rgba(0, 10, 25, 0.95); border: 1px dashed #ff00ff; padding: 12px; border-radius: 10px; margin-bottom: 12px;
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { border-color: #ff00ff; box-shadow: 0 0 5px rgba(255,0,255,0.2); }
+            50% { border-color: #00ffcc; box-shadow: 0 0 15px rgba(0,255,204,0.4); }
+            100% { border-color: #ff00ff; box-shadow: 0 0 5px rgba(255,0,255,0.2); }
         }
     </style>
 </head>
@@ -118,7 +124,7 @@
                 <h1>⚡ SUBARUNOP LIVE SYNC CORE</h1>
                 <p>Admin: Ángel Barreto | Autonomous AI Engine</p>
             </div>
-            <div class="platform-badge" id="sync-status">🔴 MERODEANDO EN VIVO</div>
+            <div class="platform-badge" id="header-badge">🔴 MERODEANDO EN VIVO</div>
         </header>
 
         <div class="nav-tabs">
@@ -164,31 +170,28 @@
         <div id="view-bot" class="view-section">
             <div class="panel">
                 <h3>🤖 Bot Autónomo & Merodeo en Tiempo Real</h3>
-                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">El bot escanea el entorno de forma continua y detecta funciones para incorporar:</p>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">El bot escanea plataformas externas continuamente en busca de funciones:</p>
                 
-                <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 80px; overflow-y: auto; font-family: 'Courier New', monospace; margin-bottom: 10px;">
-                    [Subaru AI v5.3]: Motor autónomo inicializado...
+                <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 75px; overflow-y: auto; font-family: 'Courier New', monospace; margin-bottom: 10px;">
+                    [Subaru AI v5.5]: Escáner multidireccional activo en Kick / TikTok...
                 </div>
 
-                <button class="cyber-btn" style="background:#ff00ff; color:#fff;" onclick="restablecerNucleo()">🔄 Restablecer Backup del Núcleo</button>
+                <button class="cyber-btn" style="background:#ff00ff; color:#fff; margin-bottom:0;" onclick="restablecerSistema()">🔄 Restablecer Backup del Núcleo</button>
             </div>
 
             <!-- Zona Dinámica de Propuestas del Bot -->
             <div id="proposal-zone"></div>
 
-            <!-- Módulos Ya Integrados en la Plataforma -->
+            <!-- Módulos Activos en el Sistema -->
             <div class="panel" style="border-color: #00ffcc;">
                 <h3 style="color: #00ffcc;">🧬 Módulos Activos en el Sistema</h3>
-                <div id="integrated-modules-list" style="font-size: 9px; color: #fff;">
-                    <!-- Se cargan dinámicamente -->
-                </div>
+                <div id="integrated-modules-container"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // Lista base de posibles funciones que el bot puede descubrir analizando plataformas
-        const poolPropuestas = [
+        const poolFunciones = [
             { id: 'chat_unificado', titulo: '💬 Chat Unificado (Kick & TikTok)', desc: 'Fusión de chats en tiempo real con moderación cruzada.' },
             { id: 'alertas_mp', titulo: '⚡ Alertas Mercado Pago QR', desc: 'Notificaciones visuales y sonoras automáticas por cobros QR.' },
             { id: 'analiticas_aud', titulo: '📊 Analíticas de Audiencia Activas', desc: 'Monitoreo de retención y picos de espectadores por merodeo.' },
@@ -203,90 +206,105 @@
             btnElement.classList.add('active');
         }
 
-        function obtenerEstado() {
-            let integradas = JSON.parse(localStorage.getItem('subaru_integradas')) || [];
-            let pendientes = JSON.parse(localStorage.getItem('subaru_pendientes')) || null;
-            return { integradas, pendientes };
+        function obtenerDatos() {
+            let integradas = JSON.parse(localStorage.getItem('subaru_integradas')) || ['chat_unificado', 'alertas_mp']; // Arranque con un par por defecto para evitar vacío absoluto
+            let pendienteActual = JSON.parse(localStorage.getItem('subaru_pendiente')) || null;
+            return { integradas, pendienteActual };
         }
 
-        function guardarEstado(integradas, pendientes) {
+        function guardarDatos(integradas, pendienteActual) {
             localStorage.setItem('subaru_integradas', JSON.stringify(integradas));
-            localStorage.setItem('subaru_pendientes', JSON.stringify(pendientes));
+            localStorage.setItem('subaru_pendiente', JSON.stringify(pendienteActual));
         }
 
-        function renderizarSistema() {
-            let { integradas, pendientes } = obtenerEstado();
-            
-            // Si no hay nada integrado ni pendiente, el bot elige una propuesta para analizar
-            if (integradas.length === 0 && !pendientes) {
-                let disponibles = poolPropuestas.filter(p => !integradas.includes(p.id));
+        function actualizarInterfaz() {
+            let { integradas, pendienteActual } = obtenerDatos();
+
+            // Si no hay propuesta pendiente, buscar una que aún no esté integrada
+            if (!pendienteActual) {
+                let disponibles = poolFunciones.filter(f => !integradas.includes(f.id));
                 if (disponibles.length > 0) {
-                    pendientes = disponibles[Math.floor(Math.random() * disponibles.length)];
-                    guardarEstado(integradas, pendientes);
+                    pendienteActual = disponibles[Math.floor(Math.random() * disponibles.length)];
+                    guardarDatos(integradas, pendienteActual);
                 }
             }
 
-            // Renderizar propuestas pendientes en el Bot Core
+            // Renderizar Propuesta en Tiempo Real
             let proposalZone = document.getElementById('proposal-zone');
-            if (pendientes) {
+            if (pendienteActual) {
                 proposalZone.innerHTML = `
                     <div class="proposal-card">
-                        <h4 style="font-family:'Orbitron'; font-size:10px; color:#ff00ff; margin-bottom:4px;">⚡ Propuesta en Tiempo Real encontrada:</h4>
-                        <p style="font-size:9px; color:#fff; margin-bottom:8px;"><b>${pendientes.titulo}</b> - ${pendientes.desc}</p>
+                        <h4 style="font-family:'Orbitron'; font-size:10px; color:#ff00ff; margin-bottom:4px;">⚡ Propuesta en Tiempo Real Detectada:</h4>
+                        <p style="font-size:9px; color:#fff; margin-bottom:8px;"><b>${pendienteActual.titulo}</b><br>${pendienteActual.desc}</p>
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                            <button class="cyber-btn" style="background:#00ffcc; color:#000; margin:0;" onclick="integrarPropuesta()">✅ Confirmar & Integrar</button>
+                            <button class="cyber-btn" style="background:#00ffcc; color:#000; margin:0;" onclick="confirmarIntegracion()">✅ Confirmar & Integrar</button>
                             <button class="cyber-btn" style="background:#ff0055; color:#fff; margin:0;" onclick="descartarPropuesta()">❌ Descartar</button>
                         </div>
                     </div>
                 `;
             } else {
-                proposalZone.innerHTML = `<p style="font-size:9px; color:#8be9fd; text-align:center; padding:10px;">[Bot]: Escaneando nuevas funciones en plataformas externas...</p>`;
+                proposalZone.innerHTML = `
+                    <div class="panel" style="border-style: dashed; text-align:center; padding:10px;">
+                        <p style="font-size:9px; color:#8be9fd;">[Bot]: Todos los módulos disponibles han sido integrados con éxito. Merodeando nuevas fuentes...</p>
+                    </div>
+                `;
             }
 
-            // Renderizar módulos integrados
-            let listContainer = document.getElementById('integrated-modules-list');
+            // Renderizar Módulos Activos
+            let container = document.getElementById('integrated-modules-container');
             if (integradas.length === 0) {
-                listContainer.innerHTML = `<span style="color:#8be9fd;">Ningún módulo integrado todavía. Revisa el Bot Core para aceptar las propuestas de análisis.</span>`;
+                container.innerHTML = `<p style="font-size:8px; color:#8be9fd;">No hay módulos activos actualmente.</p>`;
             } else {
                 let html = '';
-                integradas.forEach(idMod => {
-                    let mod = poolPropuestas.find(p => p.id === idMod);
+                integradas.forEach(id => {
+                    let mod = poolFunciones.find(f => f.id === id);
                     if (mod) {
-                        html += `<div style="background:rgba(0,255,204,0.1); border:1px solid #00ffcc; padding:8px; border-radius:6px; margin-bottom:6px;">
-                            <b>${mod.titulo}</b><br><span style="font-size:8px; color:#8be9fd;">${mod.desc}</span>
-                        </div>`;
+                        html += `
+                            <div style="background:rgba(0,255,204,0.08); border:1px solid rgba(0,255,204,0.4); padding:8px; border-radius:8px; margin-bottom:6px;">
+                                <h4 style="font-family:'Orbitron'; font-size:9px; color:#fff;">${mod.titulo}</h4>
+                                <p style="font-size:8px; color:#8be9fd;">${mod.desc}</p>
+                            </div>
+                        `;
                     }
                 });
-                listContainer.innerHTML = html;
+                container.innerHTML = html;
             }
         }
 
-        function integrarPropuesta() {
-            let { integradas, pendientes } = obtenerEstado();
-            if (pendientes) {
-                integradas.push(pendientes.id);
-                pendientes = null; // Limpia la propuesta actual para que busque la siguiente
-                guardarEstado(integradas, pendientes);
-                renderizarSistema();
+        function confirmarIntegracion() {
+            let { integradas, pendienteActual } = obtenerDatos();
+            if (pendienteActual && !integradas.includes(pendienteActual.id)) {
+                integradas.push(pendienteActual.id);
+                guardarDatos(integradas, null);
+                actualizarInterfaz();
             }
         }
 
         function descartarPropuesta() {
-            let { integradas } = obtenerEstado();
-            guardarEstado(integradas, null);
-            renderizarSistema();
+            let { integradas } = obtenerDatos();
+            guardarDatos(integradas, null);
+            actualizarInterfaz();
         }
 
-        function restablecerNucleo() {
+        function restablecerSistema() {
             localStorage.removeItem('subaru_integradas');
-            localStorage.removeItem('subaru_pendientes');
-            renderizarSistema();
-            alert("Núcleo restablecido. El bot comenzó un nuevo ciclo de análisis.");
+            localStorage.removeItem('subaru_pendiente');
+            actualizarInterfaz();
+            alert("Núcleo de merodeo reiniciado. El bot comenzó un nuevo ciclo de escaneo.");
         }
 
-        // Inicializar al cargar la página
+        function emitirPrestamoLegal() {
+            let solicitante = document.getElementById('solicitante').value.trim();
+            let monto = document.getElementById('monto-prestamo').value.trim();
+            if (!solicitante || !monto) { alert("Completa los campos."); return; }
+            alert(`Contrato legal emitido para ${solicitante} por $${monto} USD.`);
+            document.getElementById('solicitante').value = "";
+            document.getElementById('monto-prestamo').value = "";
+        }
+
+        // Inicializar al cargar
         window.onload = () => {
-            renderizarSistema();
+            actualizarInterfaz();
         };
 
         // Fondo animado de partículas
