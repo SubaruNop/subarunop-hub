@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubaruNop Live Sync Core - Modal Emergente</title>
+    <title>SubaruNop Live Sync Core - Redirección Automática</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
 
         body {
             font-family: 'Rajdhani', sans-serif;
@@ -68,6 +68,7 @@
             background: rgba(8, 12, 28, 0.85); backdrop-filter: blur(10px);
             border: 1px solid rgba(0, 255, 204, 0.3); border-radius: 14px; padding: 16px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); position: relative; overflow: hidden; margin-bottom: 12px;
+            transition: all 0.4s ease;
         }
         .panel::before {
             content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
@@ -77,6 +78,13 @@
             font-family: 'Orbitron', sans-serif; font-size: 11px; border-bottom: 1px solid rgba(0, 255, 204, 0.3);
             padding-bottom: 6px; color: #fff; font-weight: 900; margin-bottom: 10px;
             text-shadow: 0 0 6px rgba(0, 255, 204, 0.5);
+        }
+
+        /* EFECTO BRILLO AL REDIRIGIR A UN MÓDULO NUEVO */
+        .panel.destacado-nuevo {
+            border-color: #ff00ff !important;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.8) !important;
+            transform: scale(1.02);
         }
 
         input.cyber-input, select.cyber-input {
@@ -126,11 +134,12 @@
     <canvas id="bg-canvas"></canvas>
     <div class="scanline-overlay"></div>
 
+    <!-- VENTANA EMERGENTE CON REDIRECCIÓN -->
     <div id="modal-overlay">
         <div class="modal-box">
             <h2 id="modal-titulo">⚡ ¡CAMBIO APLICADO!</h2>
-            <p id="modal-texto">El módulo se ha integrado correctamente al núcleo con éxito.</p>
-            <button class="cyber-btn" onclick="cerrarModal()">ENTendido, Comandante</button>
+            <p id="modal-texto">El módulo se ha integrado correctamente al núcleo.</p>
+            <button class="cyber-btn" onclick="irACorroborarActualizacion()">🔍 Ir a corroborar actualización</button>
         </div>
     </div>
 
@@ -138,9 +147,9 @@
         <header>
             <div>
                 <h1>⚡ SUBARUNOP LIVE SYNC CORE</h1>
-                <p>Admin: Ángel Barreto | Alerta de Cambio Real</p>
+                <p>Admin: Ángel Barreto | Redirección de Verificación</p>
             </div>
-            <div class="platform-badge">MODO DIÁLOGO ACTIVO</div>
+            <div class="platform-badge">MODO REDIRECCIÓN ACTIVO</div>
         </header>
 
         <div class="nav-tabs">
@@ -150,6 +159,7 @@
             <button class="tab-btn" onclick="cambiarVista('bot', this)">🤖 Bot Core</button>
         </div>
 
+        <!-- VISTA 1: TESORERÍA -->
         <div id="view-tesoreria" class="view-section active">
             <div class="panel">
                 <h3>💰 Tesorería Global & Pagos (Mercado Pago)</h3>
@@ -162,6 +172,7 @@
             </div>
         </div>
 
+        <!-- VISTA 2: PRÉSTAMOS -->
         <div id="view-prestamos" class="view-section">
             <div class="panel">
                 <h3>🏦 Módulo de Préstamos & Contratos Legales</h3>
@@ -175,6 +186,7 @@
             </div>
         </div>
 
+        <!-- VISTA 3: RADAR -->
         <div id="view-radar" class="view-section">
             <div class="panel" style="border-color: #00ffcc;">
                 <h3 style="color: #00ffcc;">📡 Radar Multiplataforma Live</h3>
@@ -184,6 +196,7 @@
             </div>
         </div>
 
+        <!-- VISTA 4: BOT CORE -->
         <div id="view-bot" class="view-section">
             <div class="panel">
                 <h3>🤖 Bot Autónomo & Búsqueda de Nuevas Funciones</h3>
@@ -195,12 +208,14 @@
                 </div>
 
                 <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 130px; overflow-y: auto; margin-top: 6px; font-family: 'Courier New', monospace;">
-                    [Subaru IA v3.5]: Sistema con Alerta Emergente activo...
+                    [Subaru IA v4.0]: Redirección inteligente activa...
                 </div>
             </div>
 
+            <!-- Zona de Propuestas Pendientes -->
             <div id="propuestas-zone"></div>
 
+            <!-- Zona de Módulos Activos -->
             <div id="dinamic-modules-zone">
                 <h4 style="font-family:'Orbitron'; font-size:10px; margin-bottom:8px; color:#fff;">🧬 Módulos Ya Instalados en la Plataforma:</h4>
                 <div class="panel" style="border-color: #00ffcc; margin-bottom: 6px;">
@@ -260,23 +275,27 @@
                 id: 3,
                 titulo: "📊 Módulo: Gráficos de Audiencia en Tiempo Real",
                 desc: "Analíticas de retención y picos de espectadores detectados.",
-                html: `<div class="panel" style="border-color: #00ffcc; margin-top: 6px;"><h3 style="color: #00ffcc; font-size:10px;">📊 Analíticas de Audiencia Activas</h3><p style="font-size: 8px; color: #fff;">Monitoreando picos de espectadores y retención cross-stream.</p></div>`
+                htmlId: "modulo-graficos",
+                html: `<div id="modulo-graficos" class="panel" style="border-color: #00ffcc; margin-top: 6px;"><h3 style="color: #00ffcc; font-size:10px;">📊 Analíticas de Audiencia Activas</h3><p style="font-size: 8px; color: #fff;">Monitoreando picos de espectadores y retención cross-stream.</p></div>`
             },
             {
                 id: 4,
                 titulo: "🛡️ Módulo: Moderación Anti-Spam Automatizada",
                 desc: "Filtro inteligente de bots y palabras clave detectado.",
-                html: `<div class="panel" style="border-color: #ff00ff; margin-top: 6px;"><h3 style="color: #ff00ff; font-size:10px;">🛡️ Moderación Anti-Spam Activa</h3><p style="font-size: 8px; color: #fff;">Filtro de IA operando y bloqueando enlaces maliciosos.</p></div>`
+                htmlId: "modulo-spam",
+                html: `<div id="modulo-spam" class="panel" style="border-color: #ff00ff; margin-top: 6px;"><h3 style="color: #ff00ff; font-size:10px;">🛡️ Moderación Anti-Spam Activa</h3><p style="font-size: 8px; color: #fff;">Filtro de IA operando y bloqueando enlaces maliciosos.</p></div>`
             },
             {
                 id: 5,
                 titulo: "🎯 Módulo: Widget de Metas de Suscriptores",
                 desc: "Barra de progreso dinámica para metas de stream detectada.",
-                html: `<div class="panel" style="border-color: #00ffcc; margin-top: 6px;"><h3 style="color: #00ffcc; font-size:10px;">🎯 Barra de Metas en Vivo</h3><p style="font-size: 8px; color: #fff;">Progreso de donaciones y metas sincronizado con la tesorería.</p></div>`
+                htmlId: "modulo-metas",
+                html: `<div id="modulo-metas" class="panel" style="border-color: #00ffcc; margin-top: 6px;"><h3 style="color: #00ffcc; font-size:10px;">🎯 Barra de Metas en Vivo</h3><p style="font-size: 8px; color: #fff;">Progreso de donaciones y metas sincronizado con la tesorería.</p></div>`
             }
         ];
 
         let indiceFuncionActual = 0;
+        let ultimoModuloId = "";
 
         function ejecutarAuditoriaExterna() {
             let log = document.getElementById('consola-log');
@@ -323,6 +342,7 @@
 
             let funcionAceptada = bancoNuevasFunciones.find(f => f.id === id);
             propuestas.innerHTML = "";
+            ultimoModuloId = funcionAceptada.htmlId;
 
             log.innerHTML += `<br><span style="color:#00ffcc;">[Instalación]:</span> Integrando módulo al núcleo...`;
             log.scrollTop = log.scrollHeight;
@@ -332,9 +352,9 @@
                 log.innerHTML += `<br><span style="color:#00ffcc;">[Completado]:</span> Módulo instalado correctamente.`;
                 log.scrollTop = log.scrollHeight;
 
-                // MOSTRAR VENTANA EMERGENTE
+                // MOSTRAR VENTANA EMERGENTE CON OPCIÓN DE REDIRECCIÓN
                 document.getElementById('modal-titulo').innerText = "⚡ ¡MÓDULO INTEGRADO!";
-                document.getElementById('modal-texto').innerText = `Se ha inyectado con éxito: "${funcionAceptada.titulo}". El núcleo se ha actualizado.`;
+                document.getElementById('modal-texto').innerText = `Se ha inyectado con éxito: "${funcionAceptada.titulo}".`;
                 document.getElementById('modal-overlay').classList.add('activo');
 
                 indiceFuncionActual++;
@@ -349,8 +369,21 @@
             indiceFuncionActual++;
         }
 
-        function cerrarModal() {
+        function irACorroborarActualizacion() {
+            // Cerrar modal
             document.getElementById('modal-overlay').classList.remove('activo');
+
+            // Redirigir haciendo scroll hacia el nuevo módulo instalado y resaltarlo
+            if(ultimoModuloId) {
+                let elementoModulo = document.getElementById(ultimoModuloId);
+                if(elementoModulo) {
+                    elementoModulo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    elementoModulo.classList.add('destacado-nuevo');
+                    setTimeout(() => {
+                        elementoModulo.classList.remove('destacado-nuevo');
+                    }, 3000);
+                }
+            }
         }
 
         function emitirPrestamoLegal() {
@@ -363,7 +396,7 @@
         }
 
         function limpiarConsola() {
-            document.getElementById('consola-log').innerHTML = `[Subaru IA v3.5]: Consola limpia...`;
+            document.getElementById('consola-log').innerHTML = `[Subaru IA v4.0]: Consola limpia...`;
         }
     </script>
 </body>
