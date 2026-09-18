@@ -124,7 +124,7 @@
                 <h1>⚡ SUBARUNOP LIVE SYNC CORE</h1>
                 <p>Admin: Ángel Barreto | Autonomous AI Engine</p>
             </div>
-            <div class="platform-badge" id="header-badge">🔴 MERODEANDO EN VIVO</div>
+            <div class="platform-badge" id="header-badge">🔴 MERODEANDO MULTINODO</div>
         </header>
 
         <div class="nav-tabs">
@@ -160,20 +160,20 @@
 
         <div id="view-radar" class="view-section">
             <div class="panel" style="border-color: #00ffcc;">
-                <h3 style="color: #00ffcc;">📡 Radar Multiplataforma Live</h3>
-                <div style="background: rgba(0, 5, 15, 0.9); padding: 12px; border-radius: 8px; font-size: 9px; color: #00ffcc; border: 1px solid #00ffcc; font-family: 'Courier New', monospace;">
-                    [Live Sync]: Escaneando nodos externos en Kick y TikTok... <span style="color:#ff00ff; font-weight:bold;">● ACTIVO</span>
+                <h3 style="color: #00ffcc;">📡 Radar Multinodo Live</h3>
+                <div style="background: rgba(0, 5, 15, 0.9); padding: 12px; border-radius: 8px; font-size: 9px; color: #00ffcc; border: 1px solid #00ffcc; font-family: 'Courier New', monospace;" id="radar-log">
+                    [Global Sync]: Escaneando OBS, TikTok Studio, Kick, TikTok, FB, IG, YouTube, Discord, Overlays y Mercado Pago... <span style="color:#ff00ff; font-weight:bold;">● ACTIVO</span>
                 </div>
             </div>
         </div>
 
         <div id="view-bot" class="view-section">
             <div class="panel">
-                <h3>🤖 Bot Autónomo & Merodeo en Tiempo Real</h3>
-                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">El bot escanea plataformas externas continuamente en busca de funciones:</p>
+                <h3>🤖 Bot Autónomo & Merodeo Multinodo</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">Escaneo continuo en plataformas, software de directo, pasarelas y macros:</p>
                 
                 <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 75px; overflow-y: auto; font-family: 'Courier New', monospace; margin-bottom: 10px;">
-                    [Subaru AI v5.5]: Escáner multidireccional activo en Kick / TikTok...
+                    [Subaru AI v5.6]: Buscando funciones en OBS, TikTok Studio, Kick, TikTok, FB, IG, YouTube, Discord, Overlays y MP...
                 </div>
 
                 <button class="cyber-btn" style="background:#ff00ff; color:#fff; margin-bottom:0;" onclick="restablecerSistema()">🔄 Restablecer Backup del Núcleo</button>
@@ -192,11 +192,16 @@
 
     <script>
         const poolFunciones = [
-            { id: 'chat_unificado', titulo: '💬 Chat Unificado (Kick & TikTok)', desc: 'Fusión de chats en tiempo real con moderación cruzada.' },
-            { id: 'alertas_mp', titulo: '⚡ Alertas Mercado Pago QR', desc: 'Notificaciones visuales y sonoras automáticas por cobros QR.' },
-            { id: 'analiticas_aud', titulo: '📊 Analíticas de Audiencia Activas', desc: 'Monitoreo de retención y picos de espectadores por merodeo.' },
-            { id: 'antispam', titulo: '🛡️ Moderación Anti-Spam Activa', desc: 'Filtro de IA para bloqueo inmediato de enlaces maliciosos.' },
-            { id: 'barra_metas', titulo: '🎯 Barra de Metas en Vivo', desc: 'Progreso sincronizado de donaciones directo a tesorería.' }
+            { id: 'obs_bridge', titulo: '🎥 Puente de Control OBS Studio', desc: 'Sincronización de escenas, fuentes y estados de emisión automática.' },
+            { id: 'tt_studio', titulo: '🎬 Enlace Directo TikTok Studio', desc: 'Captura de métricas nativas y alertas de emisiones verticales.' },
+            { id: 'kick_node', titulo: '🟢 Nodo de Integración Kick', desc: 'Monitoreo de espectadores, chats y eventos en tiempo real.' },
+            { id: 'tiktok_node', titulo: '🎵 Sincronización TikTok Live', desc: 'Recepción de regalos, likes masivos y comentarios en vivo.' },
+            { id: 'fb_node', titulo: '📘 Pasarela Facebook Gaming', desc: 'Monitoreo de streaming y reacciones de la comunidad.' },
+            { id: 'ig_node', titulo: '📸 Conector Instagram Live', desc: 'Alertas de transmisiones y notificaciones a seguidores.' },
+            { id: 'yt_node', titulo: '🔴 API YouTube Live streaming', desc: 'Control de chat unificado y métricas de reproducciones.' },
+            { id: 'discord_sync', titulo: '💬 Sincronización de Servidor Discord', desc: 'Automatización de roles, alertas de directo en canales de voz/texto.' },
+            { id: 'macros_overlays', titulo: '⚡ Macros de Overlays Dinámicos', desc: 'Disparadores visuales automatizados para alertas en pantalla.' },
+            { id: 'mp_gateway', titulo: '💳 Pasarela de Pagos Mercado Pago', desc: 'Cobros QR, alertas de donaciones y sincronización con tesorería.' }
         ];
 
         function cambiarVista(nombreVista, btnElement) {
@@ -207,20 +212,19 @@
         }
 
         function obtenerDatos() {
-            let integradas = JSON.parse(localStorage.getItem('subaru_integradas')) || ['chat_unificado', 'alertas_mp']; // Arranque con un par por defecto para evitar vacío absoluto
-            let pendienteActual = JSON.parse(localStorage.getItem('subaru_pendiente')) || null;
+            let integradas = JSON.parse(localStorage.getItem('subaru_integradas_multi')) || ['obs_bridge', 'kick_node', 'mp_gateway'];
+            let pendienteActual = JSON.parse(localStorage.getItem('subaru_pendiente_multi')) || null;
             return { integradas, pendienteActual };
         }
 
         function guardarDatos(integradas, pendienteActual) {
-            localStorage.setItem('subaru_integradas', JSON.stringify(integradas));
-            localStorage.setItem('subaru_pendiente', JSON.stringify(pendienteActual));
+            localStorage.setItem('subaru_integradas_multi', JSON.stringify(integradas));
+            localStorage.setItem('subaru_pendiente_multi', JSON.stringify(pendienteActual));
         }
 
         function actualizarInterfaz() {
             let { integradas, pendienteActual } = obtenerDatos();
 
-            // Si no hay propuesta pendiente, buscar una que aún no esté integrada
             if (!pendienteActual) {
                 let disponibles = poolFunciones.filter(f => !integradas.includes(f.id));
                 if (disponibles.length > 0) {
@@ -229,12 +233,11 @@
                 }
             }
 
-            // Renderizar Propuesta en Tiempo Real
             let proposalZone = document.getElementById('proposal-zone');
             if (pendienteActual) {
                 proposalZone.innerHTML = `
                     <div class="proposal-card">
-                        <h4 style="font-family:'Orbitron'; font-size:10px; color:#ff00ff; margin-bottom:4px;">⚡ Propuesta en Tiempo Real Detectada:</h4>
+                        <h4 style="font-family:'Orbitron'; font-size:10px; color:#ff00ff; margin-bottom:4px;">⚡ Función Detectada en Multinodo:</h4>
                         <p style="font-size:9px; color:#fff; margin-bottom:8px;"><b>${pendienteActual.titulo}</b><br>${pendienteActual.desc}</p>
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                             <button class="cyber-btn" style="background:#00ffcc; color:#000; margin:0;" onclick="confirmarIntegracion()">✅ Confirmar & Integrar</button>
@@ -245,12 +248,11 @@
             } else {
                 proposalZone.innerHTML = `
                     <div class="panel" style="border-style: dashed; text-align:center; padding:10px;">
-                        <p style="font-size:9px; color:#8be9fd;">[Bot]: Todos los módulos disponibles han sido integrados con éxito. Merodeando nuevas fuentes...</p>
+                        <p style="font-size:9px; color:#8be9fd;">[Bot]: Todos los nodos (OBS, TikTok Studio, Redes, Macros y MP) están sincronizados. Merodeando actualizaciones...</p>
                     </div>
                 `;
             }
 
-            // Renderizar Módulos Activos
             let container = document.getElementById('integrated-modules-container');
             if (integradas.length === 0) {
                 container.innerHTML = `<p style="font-size:8px; color:#8be9fd;">No hay módulos activos actualmente.</p>`;
@@ -287,10 +289,10 @@
         }
 
         function restablecerSistema() {
-            localStorage.removeItem('subaru_integradas');
-            localStorage.removeItem('subaru_pendiente');
+            localStorage.removeItem('subaru_integradas_multi');
+            localStorage.removeItem('subaru_pendiente_multi');
             actualizarInterfaz();
-            alert("Núcleo de merodeo reiniciado. El bot comenzó un nuevo ciclo de escaneo.");
+            alert("Núcleo multinodo reiniciado. El bot comenzó a rastrear OBS, estudios de emisión, redes y pasarelas de pago.");
         }
 
         function emitirPrestamoLegal() {
@@ -302,12 +304,10 @@
             document.getElementById('monto-prestamo').value = "";
         }
 
-        // Inicializar al cargar
         window.onload = () => {
             actualizarInterfaz();
         };
 
-        // Fondo animado de partículas
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth;
