@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubaruNop Ultimate Hub - Autonomous Core v100 Financial</title>
+    <title>SubaruNop Ultimate Hub - Adaptive Commander</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
 
@@ -14,7 +14,7 @@
             background-color: #010104;
             color: #00ffcc;
             min-height: 100vh;
-            padding: 10px;
+            padding: 12px;
         }
 
         .quantum-bg {
@@ -23,32 +23,66 @@
             z-index: -2;
         }
 
+        /* ESTRUCTURA ADAPTATIVA (GRID INTELIGENTE) */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* En Tablets pasa a 2 columnas */
+        @media (min-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .full-width-tablet {
+                grid-column: span 2;
+            }
+        }
+
+        /* En PCs pasa a 3 columnas estilo Centro de Mando */
+        @media (min-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .full-width-pc {
+                grid-column: span 3;
+            }
+            .span-two-pc {
+                grid-column: span 2;
+            }
+        }
+
         header {
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(10, 10, 25, 0.95); padding: 12px 15px; border-radius: 14px; margin-bottom: 12px;
+            background: rgba(10, 10, 25, 0.95); padding: 14px 18px; border-radius: 14px;
             border: 1px solid rgba(0, 255, 204, 0.4); box-shadow: 0 0 25px rgba(0, 255, 204, 0.3);
+            margin-bottom: 12px;
         }
         header h1 { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #fff; text-shadow: 0 0 10px #00ffcc; }
         header p { color: #8be9fd; font-size: 9px; font-weight: 700; }
 
         .panel {
             background: rgba(5, 5, 15, 0.95); border: 1px solid rgba(0, 255, 204, 0.3);
-            border-radius: 14px; padding: 14px; margin-bottom: 12px;
+            border-radius: 14px; padding: 14px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
             position: relative; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: space-between;
         }
         .panel::before {
             content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
             background: linear-gradient(to bottom, #00ffcc, #ff00ff);
         }
         .panel h3 {
-            font-family: 'Orbitron', sans-serif; margin-top: 0; font-size: 12px; border-bottom: 1px solid rgba(0, 255, 204, 0.3);
-            padding-bottom: 8px; color: #fff; font-weight: 900;
+            font-family: 'Orbitron', sans-serif; margin-top: 0; font-size: 11px; border-bottom: 1px solid rgba(0, 255, 204, 0.3);
+            padding-bottom: 6px; color: #fff; font-weight: 900; margin-bottom: 8px;
         }
 
         input.cyber-input, select.cyber-input {
             width: 100%; padding: 10px; background: #000208; border: 1px solid #00ffcc;
-            border-radius: 8px; color: #00ffcc; font-family: 'Rajdhani', sans-serif; font-size: 12px;
+            border-radius: 8px; color: #00ffcc; font-family: 'Rajdhani', sans-serif; font-size: 11px;
             margin-bottom: 8px; outline: none;
         }
 
@@ -61,61 +95,85 @@
         button.cyber-btn:hover { filter: brightness(1.2); box-shadow: 0 0 15px rgba(0,255,204,0.5); }
 
         .platform-badge {
-            display: inline-flex; padding: 4px 8px; border-radius: 4px; font-size: 8px; 
+            display: inline-flex; padding: 4px 8px; border-radius: 4px; font-size: 7px; 
             font-family: 'Orbitron', sans-serif; background: rgba(0, 255, 204, 0.15); color: #00ffcc; border: 1px solid #00ffcc;
         }
     </style>
 </head>
 <body class="quantum-bg">
 
-    <header>
+    <header class="full-width-pc" style="max-width: 1400px; margin: 0 auto 12px auto;">
         <div>
-            <h1>⚡ SUBARUNOP FINANCIAL COMMANDER</h1>
-            <p>Admin Exclusivo: Ángel Barreto</p>
+            <h1>⚡ SUBARUNOP ADAPTIVE COMMANDER</h1>
+            <p>Admin Exclusivo: Ángel Barreto | Multi-Dispositivo (PC / Tablet / Celu)</p>
         </div>
-        <div class="platform-badge">TESORERÍA & IA ACTIVA</div>
+        <div id="device-indicator" class="platform-badge">AUTO-DETECTANDO...</div>
     </header>
 
-    <div class="panel">
-        <h3>💰 Tesorería Global & Ingresos Pasivos</h3>
-        <p style="font-size: 10px; color: #8be9fd; margin-bottom: 8px;">Control de capital acumulado, comisiones de Mercado Pago y pasarelas QR en tiempo real.</p>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; font-size: 9px; text-align: center; font-family: 'Orbitron', sans-serif;">
-            <div style="background:#000; padding:10px; border-radius:6px; border:1px solid #00ffcc;">USD GLOBAL<br><b id="caja-global" style="color:#fff; font-size:11px;">$14,850.00</b></div>
-            <div style="background:#000; padding:10px; border-radius:6px; border:1px solid #7000ff;">PASIVO ACUMULADO<br><b id="caja-pasiva" style="color:#fff; font-size:11px;">$3,420.00</b></div>
-            <div style="background:#000; padding:10px; border-radius:6px; border:1px solid #ff00ff;">COMISIONES QR<br><b style="color:#fff; font-size:11px;">4.5% Activo</b></div>
+    <div class="dashboard-grid">
+
+        <!-- TESORERÍA GLOBAL -->
+        <div class="panel span-two-pc full-width-tablet">
+            <h3>💰 Tesorería Global & Ingresos Pasivos</h3>
+            <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">Control unificado de capital y comisiones QR en tiempo real.</p>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; font-size: 9px; text-align: center; font-family: 'Orbitron', sans-serif;">
+                <div style="background:#000; padding:10px; border-radius:6px; border:1px solid #00ffcc;">USD GLOBAL<br><b style="color:#fff; font-size:11px;">$14,850.00</b></div>
+                <div style="background:#000; padding:10px; border-radius:6px; border:1px solid #7000ff;">PASIVO ACUMULADO<br><b style="color:#fff; font-size:11px;">$3,420.00</b></div>
+                <div style="background:#000; padding:10px; border-radius:6px; border:1px solid #ff00ff;">COMISIONES QR<br><b style="color:#fff; font-size:11px;">4.5% Activo</b></div>
+            </div>
         </div>
-    </div>
 
-    <!-- ZONA DINÁMICA DE MÓDULOS GESTIONADOS POR EL BOT -->
-    <div id="dinamic-modules-zone"></div>
-
-    <div class="panel">
-        <h3>🏦 Préstamos Inteligentes & Contratos Legales</h3>
-        <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">Sistema automatizado de créditos para streamers y empresas con ejecución legal digital:</p>
-        
-        <input type="text" id="solicitante" class="cyber-input" placeholder="Nombre de Streamer o Empresa solicitante...">
-        <input type="number" id="monto-prestamo" class="cyber-input" placeholder="Monto del préstamo en USD...">
-        <select id="tipo-contrato" class="cyber-input">
-            <option value="streamer">Contrato Streamer (Retención de Ingresos)</option>
-            <option value="empresa">Contrato Corporativo (Ejecución Legal Automática)</option>
-        </select>
-        <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #7000ff); color: #fff;" onclick="emitirPrestamoLegal()">⚖️ Emitir Contrato y Desembolsar</button>
-    </div>
-
-    <div class="panel">
-        <h3>🤖 Bot Autónomo & "Subaru te ayuda"</h3>
-        <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">Clasificador automático (Free, Niveles 1-20, Élite) y soporte en vivo:</p>
-        
-        <button class="cyber-btn" onclick="auditarYClasificarFuncion()">🔍 Auditar Competencia & Clasificar Niveles</button>
-        <input type="text" id="orden-usuario" class="cyber-input" placeholder="Pregúntale a Subaru o da una orden financiera...">
-        <button class="cyber-btn" onclick="procesarComandoBot()">⚡ Ejecutar Orden</button>
-
-        <div id="consola-log" style="background: #000208; padding: 8px; border-radius: 6px; font-size: 9px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 130px; overflow-y: auto; margin-top: 10px; font-family: 'Courier New', monospace;">
-            [Bot Financial Core]: Sistemas de cobro Mercado Pago (QR y Transferencias) vinculados. Listos para operar...
+        <!-- MÓDULO DE PRÉSTAMOS -->
+        <div class="panel">
+            <h3>🏦 Préstamos & Contratos Legales</h3>
+            <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">Créditos con ejecución legal automatizada:</p>
+            
+            <input type="text" id="solicitante" class="cyber-input" placeholder="Streamer / Empresa solicitante...">
+            <input type="number" id="monto-prestamo" class="cyber-input" placeholder="Monto en USD...">
+            <select id="tipo-contrato" class="cyber-input">
+                <option value="streamer">Contrato Streamer (Retención)</option>
+                <option value="empresa">Contrato Corporativo (Ejecución Legal)</option>
+            </select>
+            <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #7000ff); color: #fff;" onclick="emitirPrestamoLegal()">⚖️ Emitir Contrato</button>
         </div>
+
+        <!-- ZONA DINÁMICA DE MÓDULOS -->
+        <div id="dinamic-modules-zone" class="full-width-tablet" style="display: contents;"></div>
+
+        <!-- BOT AUTÓNOMO & CONSOLA -->
+        <div class="panel span-two-pc full-width-tablet">
+            <h3>🤖 Bot Autónomo & Clasificador por Niveles</h3>
+            <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">Gestión automática (Free, Niveles 1-20, Élite/Premium):</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <button class="cyber-btn" onclick="auditarYClasificarFuncion()">🔍 Auditar y Clasificar</button>
+                <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #00ffcc); color: #000;" onclick="limpiarConsola()">🧹 Limpiar Consola</button>
+            </div>
+
+            <input type="text" id="orden-usuario" class="cyber-input" placeholder="Escribe una orden o comando para Subaru IA..." style="margin-top: 6px;">
+            <button class="cyber-btn" onclick="procesarComandoBot()">⚡ Ejecutar en el Sistema</button>
+
+            <div id="consola-log" style="background: #000208; padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 110px; overflow-y: auto; margin-top: 6px; font-family: 'Courier New', monospace;">
+                [Core Multidispositivo]: Sistema responsivo activo. Listos para operar en PC, Tablet y Celular...
+            </div>
+        </div>
+
     </div>
 
     <script>
+        // Detección automática del dispositivo
+        window.addEventListener('DOMContentLoaded', () => {
+            let width = window.innerWidth;
+            let badge = document.getElementById('device-indicator');
+            if (width < 768) {
+                badge.innerText = "MÓVIL TÁCTIL ACTIVO";
+            } else if (width >= 768 && width < 1200) {
+                badge.innerText = "TABLET ADAPTATIVA ACTIVA";
+            } else {
+                badge.innerText = "CENTRO DE MANDO PC ACTIVO";
+            }
+        });
+
         const funcionesMercado = [
             { nombre: "HUD de Transmisión Cuántica 3D", nivel: "Élite / Premium" },
             { nombre: "Sistema de Alertas de Audio por Zona", nivel: "Nivel 10 al 20" },
@@ -127,23 +185,22 @@
             let log = document.getElementById('consola-log');
             let zonaModulos = document.getElementById('dinamic-modules-zone');
 
-            log.innerHTML += `<br><span style="color:#00ffcc;">[Bot Autónomo]:</span> Analizando funciones de plataformas rivales y asignando rangos...`;
+            log.innerHTML += `<br><span style="color:#00ffcc;">[Bot Autónomo]:</span> Analizando funciones externas y adaptando a la pantalla actual...`;
             log.scrollTop = log.scrollHeight;
 
             setTimeout(() => {
                 let item = funcionesMercado[Math.floor(Math.random() * funcionesMercado.length)];
                 
-                log.innerHTML += `<br><span style="color:#ff00ff;">[Clasificación IA]:</span> Función detectada: <b style="color:#fff;">"${item.nombre}"</b> -> Rango asignado: <b style="color:#00ffcc;">${item.nivel}</b>`;
+                log.innerHTML += `<br><span style="color:#ff00ff;">[Clasificación IA]:</span> Detectado: <b style="color:#fff;">"${item.nombre}"</b> -> ${item.nivel}`;
                 log.scrollTop = log.scrollHeight;
 
                 zonaModulos.innerHTML += `
-                    <div class="panel" style="border-color: #00ffcc; background: rgba(0, 15, 30, 0.95);">
-                        <h3 style="color: #00ffcc;">📌 Módulo Integrado: ${item.nombre}</h3>
-                        <p style="font-size: 10px; color: #fff;">Categoría: <b>${item.nivel}</b> — Ingresos pasivos habilitados automáticamente.</p>
+                    <div class="panel">
+                        <h3 style="color: #00ffcc;">📌 Módulo: ${item.nombre}</h3>
+                        <p style="font-size: 9px; color: #fff;">Nivel: <b>${item.nivel}</b> — Ingresos pasivos inyectados.</p>
                     </div>
                 `;
-                alert(`El bot analizó la función y la configuró para el nivel: ${item.nivel}`);
-            }, 800);
+            }, 600);
         }
 
         function emitirPrestamoLegal() {
@@ -153,27 +210,15 @@
             let log = document.getElementById('consola-log');
 
             if (!solicitante || !monto) {
-                alert("Por favor ingresa el nombre y el monto del préstamo.");
+                alert("Completa el nombre y el monto.");
                 return;
             }
 
-            log.innerHTML += `<br><span style="color:#ff00ff;">[Legal & Finanzas]:</span> Generando contrato digital para <b style="color:#fff;">${solicitante</b> por $${monto} (${tipo})...`;
+            log.innerHTML += `<br><span style="color:#ff00ff;">[Finanzas]:</span> Contrato generado para <b style="color:#fff;">${solicitante}</b> ($${monto} USD - ${tipo}).`;
             log.scrollTop = log.scrollHeight;
-
-            setTimeout(() => {
-                let contratoExitoso = confirm(`⚖️ CONTRATO LEGAL DIGITAL - SUBARUNOP:\n\nBeneficiario: ${solicitante}\nMonto: $${monto} USD\nModalidad: ${tipo}\n\nCláusula: En caso de impago, el sistema ejecutará la retención automática de ganancias o proceso legal automatizado.\n\n¿Autorizar desembolso inmediato desde la Tesorería?`);
-
-                if (contratoExitoso) {
-                    log.innerHTML += `<br><span style="color:#00ffcc;">[Desembolso Éxitoso]: Préstamo entregado a ${solicitante}. Contrato firmado digitalmente y respaldado.</span>`;
-                    log.scrollTop = log.scrollHeight;
-                    alert("¡Préstamo otorgado y contrato legal activado con éxito!");
-                    document.getElementById('solicitante').value = "";
-                    document.getElementById('monto-prestamo').value = "";
-                } else {
-                    log.innerHTML += `<br><span style="color:#8be9fd;">[Cancelado]: Contrato retenido por el Administrador.</span>`;
-                    log.scrollTop = log.scrollHeight;
-                }
-            }, 600);
+            alert(`¡Contrato digital emitido con éxito para ${solicitante} (${tipo})!`);
+            document.getElementById('solicitante').value = "";
+            document.getElementById('monto-prestamo').value = "";
         }
 
         function procesarComandoBot() {
@@ -187,10 +232,14 @@
             log.scrollTop = log.scrollHeight;
 
             setTimeout(() => {
-                log.innerHTML += `<br><span style="color:#00ffcc;">[Subaru IA]:</span> Comando financiero procesado. El bot mantiene el control de los flujos y pasarelas de pago.`;
+                log.innerHTML += `<br><span style="color:#00ffcc;">[Subaru IA]:</span> Comando ejecutado y sincronizado en todos los dispositivos.`;
                 log.scrollTop = log.scrollHeight;
                 input.value = "";
-            }, 600);
+            }, 500);
+        }
+
+        function limpiarConsola() {
+            document.getElementById('consola-log').innerHTML = `[Core Multidispositivo]: Consola reiniciada por Ángel Barreto.`;
         }
     </script>
 </body>
