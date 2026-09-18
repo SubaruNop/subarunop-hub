@@ -110,7 +110,6 @@
             font-family: 'Orbitron', sans-serif; background: rgba(255, 0, 255, 0.15); color: #ff00ff; border: 1px solid #ff00ff;
         }
 
-        /* MODAL EMERGENTE CYBERPUNK */
         #modal-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(2, 4, 12, 0.85); backdrop-filter: blur(8px);
@@ -133,7 +132,6 @@
     <canvas id="bg-canvas"></canvas>
     <div class="scanline-overlay"></div>
 
-    <!-- VENTANA EMERGENTE DE CONFIRMACIÓN -->
     <div id="modal-overlay">
         <div class="modal-box">
             <h2 id="modal-titulo">⚡ ACTUALIZACIÓN APLICADA</h2>
@@ -158,7 +156,6 @@
             <button class="tab-btn" onclick="cambiarVista('bot', this)">🤖 Bot Core</button>
         </div>
 
-        <!-- VISTA 1: TESORERÍA -->
         <div id="view-tesoreria" class="view-section active">
             <div class="panel">
                 <h3>💰 Tesorería Global & Pagos (Mercado Pago)</h3>
@@ -171,7 +168,6 @@
             </div>
         </div>
 
-        <!-- VISTA 2: PRÉSTAMOS -->
         <div id="view-prestamos" class="view-section">
             <div class="panel">
                 <h3>🏦 Módulo de Préstamos & Contratos Legales</h3>
@@ -185,7 +181,6 @@
             </div>
         </div>
 
-        <!-- VISTA 3: RADAR -->
         <div id="view-radar" class="view-section">
             <div class="panel" style="border-color: #00ffcc;">
                 <h3 style="color: #00ffcc;">📡 Radar Multiplataforma Live</h3>
@@ -195,7 +190,6 @@
             </div>
         </div>
 
-        <!-- VISTA 4: BOT CORE -->
         <div id="view-bot" class="view-section">
             <div class="panel">
                 <h3>🤖 Bot Autónomo & Merodeo en Tiempo Real</h3>
@@ -206,11 +200,11 @@
                 </div>
 
                 <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 130px; overflow-y: auto; margin-top: 6px; font-family: 'Courier New', monospace;">
-                    [Subaru AI v5.0]: Motor autónomo y respaldo en vivo inicializado...
+                    [Subaru AI v5.1]: Motor autónomo y respaldo en vivo inicializado...
                 </div>
             </div>
 
-            <!-- Zona de Propuestas en Tiempo Real (Aparecen automáticamente abajo) -->
+            <!-- Zona de Propuestas en Tiempo Real -->
             <div id="propuestas-zone"></div>
 
             <!-- Zona de Módulos Activos (Resguardados por Backup) -->
@@ -295,13 +289,15 @@
         let indiceFuncionActual = parseInt(localStorage.getItem('subaru_indice_auto') || '0');
         let ultimoModuloId = localStorage.getItem('subaru_ultimoid_auto') || "";
 
-        // Restaurar Backup al cargar la plataforma
         window.addEventListener('DOMContentLoaded', () => {
             let backupModulos = localStorage.getItem('subaru_backup_modulos');
             if (backupModulos) {
                 document.getElementById('dinamic-modules-zone').innerHTML = backupModulos;
             }
-            // Iniciar motor de merodeo en tiempo real de forma automática
+            let propuestaPendiente = localStorage.getItem('subaru_propuesta_html');
+            if (propuestaPendiente) {
+                document.getElementById('propuestas-zone').innerHTML = propuestaPendiente;
+            }
             iniciarMerodeoAutonomo();
         });
 
@@ -310,17 +306,15 @@
             log.innerHTML += `<br><span style="color:#ff00ff;">[Merodeo]:</span> Escáner en tiempo real activo de fondo...`;
             log.scrollTop = log.scrollHeight;
 
-            // Simulación de escaneo autónomo periódico cada 12 segundos si hay funciones pendientes
             setInterval(() => {
                 let propuestas = document.getElementById('propuestas-zone');
                 if (propuestas.innerHTML.trim() === "" && indiceFuncionActual < bancoNuevasFunciones.length) {
                     let funcionDetectada = bancoNuevasFunciones[indiceFuncionActual];
                     
-                    log.innerHTML += `<br><span style="color:#00ffcc;">[Detectado]:</span> ${funcionDetectada.titulo} encontrado por merodeo.`;
+                    log.innerHTML += `<br><span style="color:#00ffcc;">[Detectado]:</span> ${funcionDetectada.titulo} encontrado.`;
                     log.scrollTop = log.scrollHeight;
 
-                    // Desplegar propuesta automáticamente abajo
-                    propuestas.innerHTML = `
+                    let htmlPropuesta = `
                         <div class="panel" id="propuesta-${funcionDetectada.id}" style="border-color: #ff00ff; background: rgba(20, 5, 25, 0.9);">
                             <h3 style="color: #ff00ff;">⚡ Propuesta en Tiempo Real: ${funcionDetectada.titulo}</h3>
                             <p style="font-size: 9px; color: #fff; margin-bottom: 8px;">${funcionDetectada.desc}</p>
@@ -330,8 +324,10 @@
                             </div>
                         </div>
                     `;
+                    propuestas.innerHTML = htmlPropuesta;
+                    localStorage.setItem('subaru_propuesta_html', htmlPropuesta);
                 }
-            }, 12000);
+            }, 10000);
         }
 
         function confirmarFuncion(id) {
@@ -341,34 +337,35 @@
 
             let funcionAceptada = bancoNuevasFunciones.find(f => f.id === id);
             propuestas.innerHTML = "";
+            localStorage.removeItem('subaru_propuesta_html');
+            
             ultimoModuloId = funcionAceptada.htmlId;
             localStorage.setItem('subaru_ultimoid_auto', ultimoModuloId);
 
-            log.innerHTML += `<br><span style="color:#00ffcc;">[Integración]:</span> Inyectando y actualizando plataforma...`;
+            log.innerHTML += `<br><span style="color:#00ffcc;">[Integración]:</span> Inyectando módulo al núcleo...`;
             log.scrollTop = log.scrollHeight;
 
             setTimeout(() => {
                 zonaModulos.innerHTML += funcionAceptada.html;
-                
-                // GUARDAR BACKUP PERSISTENTE
                 localStorage.setItem('subaru_backup_modulos', zonaModulos.innerHTML);
+                
                 indiceFuncionActual++;
                 localStorage.setItem('subaru_indice_auto', indiceFuncionActual);
 
                 log.innerHTML += `<br><span style="color:#ff00ff;">[Backup]:</span> Respaldado con éxito en memoria.`;
                 log.scrollTop = log.scrollHeight;
 
-                // MOSTRAR MODAL DE CONFIRMACIÓN
                 document.getElementById('modal-titulo').innerText = "⚡ PLATAFORMA ACTUALIZADA";
                 document.getElementById('modal-texto').innerText = `Se integró correctamente: "${funcionAceptada.titulo}".`;
                 document.getElementById('modal-overlay').classList.add('activo');
-            }, 500);
+            }, 400);
         }
 
         function descartarFuncion(id) {
             document.getElementById('propuestas-zone').innerHTML = "";
+            localStorage.removeItem('subaru_propuesta_html');
             let log = document.getElementById('consola-log');
-            log.innerHTML += `<br><span style="color:#ff0055;">[Sistema]:</span> Propuesta omitida por el operador.`;
+            log.innerHTML += `<br><span style="color:#ff0055;>[Sistema]:</span> Propuesta omitida.`;
             log.scrollTop = log.scrollHeight;
             indiceFuncionActual++;
             localStorage.setItem('subaru_indice_auto', indiceFuncionActual);
@@ -376,16 +373,20 @@
 
         function irACorroborarActualizacion() {
             document.getElementById('modal-overlay').classList.remove('activo');
+            // Cambiar automáticamente a la pestaña Bot Core para ver el resultado
+            cambiarVista('bot', document.querySelectorAll('.tab-btn')[3]);
 
             if(ultimoModuloId) {
-                let elementoModulo = document.getElementById(ultimoModuloId);
-                if(elementoModulo) {
-                    elementoModulo.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    elementoModulo.classList.add('destacado-nuevo');
-                    setTimeout(() => {
-                        elementoModulo.classList.remove('destacado-nuevo');
-                    }, 3000);
-                }
+                setTimeout(() => {
+                    let elementoModulo = document.getElementById(ultimoModuloId);
+                    if(elementoModulo) {
+                        elementoModulo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        elementoModulo.classList.add('destacado-nuevo');
+                        setTimeout(() => {
+                            elementoModulo.classList.remove('destacado-nuevo');
+                        }, 3000);
+                    }
+                }, 300);
             }
         }
 
