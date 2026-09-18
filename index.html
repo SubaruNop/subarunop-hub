@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubaruNop Live Sync Core - Autonomous AI Engine</title>
+    <title>SubaruNop Live Sync Core - Billetera & Ecosistema Nativo</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
 
@@ -100,20 +100,11 @@
         .metric-value { color: #fff; font-size: 12px; text-shadow: 0 0 8px #00ffcc; }
         .platform-badge {
             display: inline-flex; padding: 4px 8px; border-radius: 4px; font-size: 7px; 
-            font-family: 'Orbitron', sans-serif; background: rgba(255, 0, 255, 0.15); color: #ff00ff; border: 1px solid #ff00ff;
+            font-family: 'Orbitron', sans-serif; background: rgba(0, 255, 204, 0.15); color: #00ffcc; border: 1px solid #00ffcc;
         }
-        .grid-nodes {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
-        }
-        .node-card {
-            background: rgba(0, 255, 204, 0.05); border: 1px solid rgba(0, 255, 204, 0.3);
-            padding: 12px; border-radius: 10px;
-        }
-        .node-card h4 { font-family: 'Orbitron', sans-serif; font-size: 10px; color: #fff; margin-bottom: 6px; }
-        .log-terminal {
-            background: rgba(0, 2, 10, 0.95); padding: 10px; border-radius: 8px; font-size: 9px;
-            color: #00ffcc; border: 1px solid #00ffcc; height: 100px; overflow-y: auto; font-family: 'Courier New', monospace;
-            margin-top: 10px;
+
+        .grid-native {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
         }
     </style>
 </head>
@@ -126,102 +117,81 @@
         <header>
             <div>
                 <h1>⚡ SUBARUNOP LIVE SYNC CORE</h1>
-                <p>Admin: Ángel Barreto | Autonomous AI Engine</p>
+                <p>Admin: Ángel Barreto | Ecosistema 100% Nativo</p>
             </div>
-            <div class="platform-badge">🟢 NODO MULTINODO ACTIVO</div>
+            <div class="platform-badge">🛡️ NÚCLEO SOBERANO</div>
         </header>
 
         <div class="nav-tabs">
-            <button class="tab-btn active" onclick="cambiarVista('tesoreria', this)">💰 Tesorería</button>
+            <button class="tab-btn active" onclick="cambiarVista('tesoreria', this)">💰 Billetera Nativa</button>
             <button class="tab-btn" onclick="cambiarVista('prestamos', this)">🏦 Préstamos</button>
             <button class="tab-btn" onclick="cambiarVista('radar', this)">📡 Radar</button>
-            <button class="tab-btn" onclick="cambiarVista('bot', this)">🎮 Consola de Pruebas</button>
+            <button class="tab-btn" onclick="cambiarVista('control', this)">🎛️ Ecosistema Nativo</button>
         </div>
 
+        <!-- VISTA 1: BILLETERA NATIVA -->
         <div id="view-tesoreria" class="view-section active">
             <div class="panel">
-                <h3>💰 Tesorería Global & Pagos (Mercado Pago)</h3>
+                <h3>💰 Billetera Propia & Transacciones Nativas</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Gestión financiera interna sin intermediarios ni terceros.</p>
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; font-size: 8px; margin-bottom: 10px;">
-                    <div class="metric-box">USD GLOBAL<br><b class="metric-value" id="val-usd">$14,850.00</b></div>
-                    <div class="metric-box" style="border-color: #7000ff;">PASIVO<br><b class="metric-value" style="text-shadow: 0 0 8px #7000ff;">$3,420.00</b></div>
-                    <div class="metric-box" style="border-color: #ff00ff;">MERCADO PAGO<br><b class="metric-value" style="text-shadow: 0 0 8px #ff00ff;">4.5% Activo</b></div>
+                    <div class="metric-box">BALANCE NATIVO<br><b class="metric-value" id="val-usd">$14,850.00</b></div>
+                    <div class="metric-box" style="border-color: #7000ff;">PASIVO INTERNO<br><b class="metric-value" style="text-shadow: 0 0 8px #7000ff;" id="val-pasivo">$3,420.00</b></div>
+                    <div class="metric-box" style="border-color: #ff00ff;">BILLETERA PROPIA<br><b class="metric-value" style="text-shadow: 0 0 8px #ff00ff;">100% Activa</b></div>
                 </div>
-                <button class="cyber-btn" style="background:linear-gradient(135deg, #ff00ff, #00ffcc); color:#000;" onclick="simularIngresoMP()">⚡ Simular Cobro QR Mercado Pago</button>
+                <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #7000ff); color:#fff;" onclick="registrarIngresoNativo()">⚡ Registrar Crédito en Billetera Propia</button>
             </div>
         </div>
 
+        <!-- VISTA 2: PRÉSTAMOS -->
         <div id="view-prestamos" class="view-section">
             <div class="panel">
-                <h3>🏦 Módulo de Préstamos & Contratos Legales</h3>
-                <input type="text" id="solicitante" class="cyber-input" placeholder="Streamer / Empresa solicitante...">
-                <input type="number" id="monto-prestamo" class="cyber-input" placeholder="Monto en USD...">
+                <h3>🏦 Módulo de Préstamos & Contratos Nativos</h3>
+                <input type="text" id="solicitante" class="cyber-input" placeholder="Usuario / Miembro del ecosistema...">
+                <input type="number" id="monto-prestamo" class="cyber-input" placeholder="Monto en balance nativo...">
                 <select id="tipo-contrato" class="cyber-input">
-                    <option value="streamer">Contrato Streamer (Retención)</option>
-                    <option value="empresa">Contrato Corporativo (Ejecución Legal)</option>
+                    <option value="streamer">Contrato Interno de Creador</option>
+                    <option value="empresa">Acuerdo Corporativo del Ecosistema</option>
                 </select>
-                <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #7000ff); color: #fff;" onclick="emitirPrestamoLegal()">⚖️ Emitir Contrato Legal</button>
+                <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #7000ff); color: #fff;" onclick="emitirPrestamoNatvo()">⚖️ Emitir Contrato Nativo</button>
             </div>
         </div>
 
+        <!-- VISTA 3: RADAR -->
         <div id="view-radar" class="view-section">
             <div class="panel" style="border-color: #00ffcc;">
-                <h3 style="color: #00ffcc;">📡 Radar Multinodo Live</h3>
-                <div style="background: rgba(0, 5, 15, 0.9); padding: 12px; border-radius: 8px; font-size: 9px; color: #00ffcc; border: 1px solid #00ffcc; font-family: 'Courier New', monospace;">
-                    [Global Sync]: Monitoreando OBS, TikTok Studio, Kick, TikTok, FB, IG, YouTube, Discord, Overlays y MP... <span style="color:#ff00ff; font-weight:bold;">● EN LÍNEA</span>
+                <h3 style="color: #00ffcc;">📡 Radar Multinodo Soberano</h3>
+                <div style="background: rgba(0, 5, 15, 0.9); padding: 12px; border-radius: 8px; font-size: 9px; color: #00ffcc; border: 1px solid #00ffcc; font-family: 'Courier New', monospace; min-height: 80px;">
+                    [Core Sync]: Monitoreo interno y unificado de transmisiones y flujos nativos... <span style="color:#ff00ff; font-weight:bold;">● SOBERANO</span>
                 </div>
             </div>
         </div>
 
-        <div id="view-bot" class="view-section">
+        <!-- VISTA 4: ECOSISTEMA NATIVO INTEGRADO -->
+        <div id="view-control" class="view-section">
             <div class="panel">
-                <h3>🎮 Panel de Control y Pruebas Multinodo</h3>
-                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Interactúa directamente con cada plataforma y software integrado:</p>
-                
-                <div class="grid-nodes">
-                    <div class="node-card">
-                        <h4>🎥 OBS Studio</h4>
-                        <button class="cyber-btn" style="font-size:8px; padding:6px;" onclick="testNodo('OBS Studio', 'Escena cambiada y streaming iniciado con éxito.')">▶️ Iniciar / Escena</button>
-                    </div>
-                    <div class="node-card">
-                        <h4>🎬 TikTok Studio</h4>
-                        <button class="cyber-btn" style="font-size:8px; padding:6px; background:#ff00ff; color:#fff;" onclick="testNodo('TikTok Studio', 'Conexión vertical y captura de métricas activas.')">📡 Sincronizar Vertical</button>
-                    </div>
-                    <div class="node-card">
-                        <h4>🟢 Kick</h4>
-                        <button class="cyber-btn" style="font-size:8px; padding:6px; background:#00ffcc; color:#000;" onclick="testNodo('Kick', 'Chat unificado y viewers en tiempo real conectados.')">💬 Test Chat Kick</button>
-                    </div>
-                    <div class="node-card">
-                        <h4>🎵 TikTok Live</h4>
-                        <button class="cyber-btn" style="font-size:8px; padding:6px; background:#ff0055; color:#fff;" onclick="testNodo('TikTok Live', 'Recepción de likes masivos y regalos simulados.')">🎁 Simular Regalo</button>
-                    </div>
-                    <div class="node-card">
-                        <h4>📘 Facebook Gaming</h4>
-                        <button class="cyber-btn" style="font-size:8px; padding:6px;" onclick="testNodo('Facebook Gaming', 'Flujo de streaming y reacciones enlazadas.')">📘 Test Conexión FB</button>
-                    </div>
-                    <div class="node-card">
-                        <h4>📸 Instagram Live</h4>
-                        <button class="cyber-btn" style="font-size:8px; padding:6px; background:#7000ff; color:#fff;" onclick="testNodo('Instagram Live', 'Alerta de transmisión enviada a seguidores.')">📸 Enviar Alerta IG</button>
-                    </div>
-                    <div class="node-card">
-                        <h4>🔴 YouTube Live</h4>
-                        <button class="cyber-btn" style="font-size:8px; padding:6px; background:#ff0000; color:#fff;" onclick="testNodo('YouTube Live', 'API de transmisión y moderación de chat lista.')">🔴 Conectar API YT</button>
-                    </div>
-                    <div class="node-card">
-                        <h4>💬 Discord</h4>
-                        <button class="cyber-btn" style="font-size:8px; padding:6px; background:#5865F2; color:#fff;" onclick="testNodo('Discord', 'Roles sincronizados y anuncio de directo publicado.')">📢 Anunciar Directo</button>
-                    </div>
-                    <div class="node-card">
-                        <h4>⚡ Macros Overlays</h4>
-                        <button class="cyber-btn" style="font-size:8px; padding:6px; background:#ffff00; color:#000;" onclick="testNodo('Macros Overlays', 'Disparador visual activado en pantalla de directo.')">✨ Disparar Overlay</button>
-                    </div>
-                    <div class="node-card">
-                        <h4>💳 Mercado Pago</h4>
-                        <button class="cyber-btn" style="font-size:8px; padding:6px; background:#009ee3; color:#fff;" onclick="testNodo('Mercado Pago', 'Cobro QR verificado y transferido a tesorería.')">💳 Test Cobro QR</button>
-                    </div>
+                <h3>🎛️ Ecosistema Centralizado Nativo</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Todas las herramientas operan directamente bajo nuestra plataforma propia:</p>
+                <div class="grid-native">
+                    <button class="cyber-btn" onclick="alert('Transmisión nativa principal iniciada.')">🔴 Streaming Core Nativo</button>
+                    <button class="cyber-btn" onclick="alert('Sincronización vertical activada.')">⚡ Multiview Nativo</button>
+                    <button class="cyber-btn" onclick="alert('Chat unificado interno abierto.')">🟢 Chat Unificado Propio</button>
+                    <button class="cyber-btn" onclick="alert('Sistema de recompensas nativo.')">🎁 Regalos & Puntos Nativos</button>
+                    <button class="cyber-btn" onclick="alert('Monitoreo de comunidad activo.')">🔵 Comunidad & Alertas</button>
+                    <button class="cyber-btn" onclick="alert('Widgets embebidos propios listos.')">🟣 Overlays Nativos</button>
+                    <button class="cyber-btn" onclick="alert('Canal de emisión propio enlazado.')">▶️ Canal Propio Live</button>
+                    <button class="cyber-btn" onclick="alert('Canal de voz y texto interno.')">💬 Core Social Interno</button>
                 </div>
+            </div>
 
-                <div class="log-terminal" id="terminal-logs">
-                    [System Ready]: Consola de pruebas multinodo inicializada. Selecciona cualquier nodo para probar su respuesta en tiempo real.
+            <div class="panel" style="border-color: #ff00ff;">
+                <h3 style="color: #ff00ff;">🧬 Módulos del Núcleo Nativo (Sin Terceros)</h3>
+                <div style="font-size: 9px; color: #fff; line-height: 1.6;">
+                    ✅ Billetera Propia Integrada<br>
+                    ✅ Chat Multiplataforma Nativo<br>
+                    ✅ Alertas y Radar Interno<br>
+                    ✅ Motor de Analíticas de Audiencia Propias<br>
+                    ✅ Sistema de Moderación y Metas Nativo
                 </div>
             </div>
         </div>
@@ -235,44 +205,21 @@
             btnElement.classList.add('active');
         }
 
-        function testNodo(nombre, mensaje) {
-            let terminal = document.getElementById('terminal-logs');
-            let timestamp = new Date().toLocaleTimeString();
-            terminal.innerHTML += `<br><span style="color:#ff00ff;">[${timestamp}] [${nombre}]:</span> ${mensaje}`;
-            terminal.scrollTop = terminal.scrollHeight;
-        }
-
-        function simularIngresoMP() {
-            let terminal = document.getElementById('terminal-logs');
-            let timestamp = new Date().toLocaleTimeString();
-            let valUsd = document.getElementById('val-usd');
-            valUsd.innerText = "$14,900.00";
-            terminal.innerHTML += `<br><span style="color:#00ffcc;">[${timestamp}] [Mercado Pago]:</span> ¡Cobro QR de $50 USD recibido y sumado a la Tesorería Global!`;
-            terminal.scrollTop = terminal.scrollHeight;
-            alert("¡Ingreso de Mercado Pago procesado con éxito y reflejado en el sistema!");
-        }
-
-        function emitirPrestamoLegal() {
-            let solicitante = document.getElementById('solicitante').value.trim();
-            let monto = document.getElementById('monto-prestamo').value.trim();
-            if (!solicitante || !monto) { alert("Completa los campos."); return; }
-            alert(`Contrato legal emitido para ${solicitante} por $${monto} USD.`);
-            document.getElementById('solicitante').value = "";
-            document.getElementById('monto-prestamo').value = "";
-        }
-
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
+
         window.addEventListener('resize', () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
         });
-        const particles = Array.from({ length: 30 }, () => ({
+
+        const particles = Array.from({ length: 35 }, () => ({
             x: Math.random() * width, y: Math.random() * height,
-            vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5, radius: Math.random() * 2 + 1
+            vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6, radius: Math.random() * 2 + 1
         }));
+
         function drawParticles() {
             ctx.clearRect(0, 0, width, height);
             ctx.fillStyle = '#00ffcc'; ctx.strokeStyle = 'rgba(0, 255, 204, 0.1)';
@@ -281,10 +228,40 @@
                 if (p.x < 0 || p.x > width) p.vx *= -1;
                 if (p.y < 0 || p.y > height) p.vy *= -1;
                 ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fill();
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    if (Math.hypot(p.x - p2.x, p.y - p2.y) < 100) {
+                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                    }
+                }
             });
             requestAnimationFrame(drawParticles);
         }
         drawParticles();
+
+        function registrarIngresoNativo() {
+            let currentUsd = parseFloat(localStorage.getItem('subaru_native_balance') || '14850.00');
+            currentUsd += 50.00;
+            localStorage.setItem('subaru_native_balance', currentUsd.toFixed(2));
+            document.getElementById('val-usd').innerText = `$${currentUsd.toFixed(2)}`;
+            alert("¡Crédito procesado exitosamente en la billetera propia del sistema!");
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            let savedBalance = localStorage.getItem('subaru_native_balance');
+            if (savedBalance) {
+                document.getElementById('val-usd').innerText = `$${savedBalance}`;
+            }
+        });
+
+        function emitirPrestamoNatvo() {
+            let solicitante = document.getElementById('solicitante').value.trim();
+            let monto = document.getElementById('monto-prestamo').value.trim();
+            if (!solicitante || !monto) { alert("Completa los campos requeridos."); return; }
+            alert(`Contrato nativo emitido y registrado para ${solicitante} por $${monto} en el balance general.`);
+            document.getElementById('solicitante').value = "";
+            document.getElementById('monto-prestamo').value = "";
+        }
     </script>
 </body>
 </html>
