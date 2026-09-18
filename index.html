@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubaruNop Live Sync Core - Function Injector</title>
+    <title>SubaruNop Live Sync Core - Aprobación Humana</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
 
@@ -28,10 +28,7 @@
             background-size: 100% 3px; z-index: -1; pointer-events: none;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+        .container { max-width: 1000px; margin: 0 auto; }
 
         header {
             display: flex; justify-content: space-between; align-items: center;
@@ -45,41 +42,22 @@
         header p { color: #8be9fd; font-size: 8px; font-weight: 700; text-transform: uppercase; }
 
         .nav-tabs {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 6px;
-            margin-bottom: 12px;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 12px;
         }
 
         .tab-btn {
-            background: rgba(5, 10, 25, 0.9);
-            border: 1px solid rgba(0, 255, 204, 0.3);
-            color: #8be9fd;
-            padding: 8px;
-            border-radius: 10px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 8px;
-            font-weight: 900;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.3s ease;
+            background: rgba(5, 10, 25, 0.9); border: 1px solid rgba(0, 255, 204, 0.3);
+            color: #8be9fd; padding: 8px; border-radius: 10px; font-family: 'Orbitron', sans-serif;
+            font-size: 8px; font-weight: 900; cursor: pointer; text-align: center; transition: all 0.3s ease;
         }
 
         .tab-btn.active {
             background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), rgba(255, 0, 255, 0.2));
-            border-color: #00ffcc;
-            color: #fff;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+            border-color: #00ffcc; color: #fff; box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
         }
 
-        .view-section {
-            display: none;
-            animation: fadeIn 0.4s ease forwards;
-        }
-
-        .view-section.active {
-            display: block;
-        }
+        .view-section { display: none; animation: fadeIn 0.4s ease forwards; }
+        .view-section.active { display: block; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(6px); }
@@ -88,11 +66,8 @@
 
         .panel {
             background: rgba(8, 12, 28, 0.85); backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 255, 204, 0.3);
-            border-radius: 14px; padding: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            position: relative; overflow: hidden;
-            margin-bottom: 12px;
+            border: 1px solid rgba(0, 255, 204, 0.3); border-radius: 14px; padding: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); position: relative; overflow: hidden; margin-bottom: 12px;
         }
         .panel::before {
             content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
@@ -123,17 +98,11 @@
             border: 1px solid #00ffcc; text-align: center; font-family: 'Orbitron', sans-serif;
         }
         .metric-value { color: #fff; font-size: 12px; text-shadow: 0 0 8px #00ffcc; }
-
         .platform-badge {
             display: inline-flex; padding: 4px 8px; border-radius: 4px; font-size: 7px; 
             font-family: 'Orbitron', sans-serif; background: rgba(0, 255, 204, 0.15); color: #00ffcc; border: 1px solid #00ffcc;
         }
-
-        @keyframes blinkPulse {
-            0% { opacity: 0.3; }
-            50% { opacity: 1; }
-            100% { opacity: 0.3; }
-        }
+        @keyframes blinkPulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
         .live-indicator { animation: blinkPulse 2s infinite; color: #ff00ff; font-weight: bold; }
     </style>
 </head>
@@ -146,9 +115,9 @@
         <header>
             <div>
                 <h1>⚡ SUBARUNOP LIVE SYNC CORE</h1>
-                <p>Admin: Ángel Barreto | Auto-Actualización Funcional</p>
+                <p>Admin: Ángel Barreto | Control de Aprobación Humana</p>
             </div>
-            <div id="device-indicator" class="platform-badge">ACTUALIZACIÓN REAL</div>
+            <div class="platform-badge">MODO SEGURO</div>
         </header>
 
         <div class="nav-tabs">
@@ -175,8 +144,6 @@
         <div id="view-prestamos" class="view-section">
             <div class="panel">
                 <h3>🏦 Módulo de Préstamos & Contratos Legales</h3>
-                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Emisión de créditos con ejecución legal automatizada:</p>
-                
                 <input type="text" id="solicitante" class="cyber-input" placeholder="Streamer / Empresa solicitante...">
                 <input type="number" id="monto-prestamo" class="cyber-input" placeholder="Monto en USD...">
                 <select id="tipo-contrato" class="cyber-input">
@@ -191,9 +158,8 @@
         <div id="view-radar" class="view-section">
             <div class="panel" style="border-color: #00ffcc;">
                 <h3 style="color: #00ffcc;">📡 Radar Multiplataforma Live</h3>
-                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 8px;">Conectado a Kick, TikTok, Discord, OBS, YouTube, Botrix y Mercado Pago:</p>
                 <div id="radar-status" style="background: rgba(0, 5, 15, 0.9); padding: 12px; border-radius: 8px; font-size: 9px; color: #00ffcc; border: 1px solid #00ffcc; font-family: 'Courier New', monospace; min-height: 80px;">
-                    [Live Sync]: Enlace de red seguro establecido... <span class="live-indicator">● EN VIVO</span>
+                    [Live Sync]: Enlace seguro establecido... <span class="live-indicator">● EN VIVO</span>
                 </div>
             </div>
         </div>
@@ -201,23 +167,23 @@
         <!-- VISTA 4: BOT CORE -->
         <div id="view-bot" class="view-section">
             <div class="panel">
-                <h3>🤖 Bot Autónomo & Inyección de Funciones Real</h3>
-                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">Auditoría y despliegue de módulos faltantes en vivo:</p>
+                <h3>🤖 Bot Autónomo & Auditoría de Plataformas</h3>
+                <p style="font-size: 9px; color: #8be9fd; margin-bottom: 10px;">El bot analiza funciones externas y te pide autorización antes de integrarlas:</p>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px;">
-                    <button class="cyber-btn" onclick="ejecutarAuditoriaYActualizacionReal()">🔍 Auditar Redes & Apps (Live Update)</button>
+                    <button class="cyber-btn" onclick="ejecutarAuditoriaExterna()">🔍 Auditar Redes (Kick/TikTok)</button>
                     <button class="cyber-btn" style="background: linear-gradient(135deg, #ff00ff, #00ffcc); color: #000;" onclick="limpiarConsola()">🧹 Limpiar Consola</button>
                 </div>
 
-                <input type="text" id="orden-usuario" class="cyber-input" placeholder="Escribe una orden o comando para Subaru IA...">
-                <button class="cyber-btn" onclick="procesarComandoBot()">⚡ Ejecutar Orden</button>
-
-                <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 110px; overflow-y: auto; margin-top: 6px; font-family: 'Courier New', monospace;">
-                    [Live Core v2.0]: Sistema listo para inyectar funciones reales...
+                <div id="consola-log" style="background: rgba(0, 2, 10, 0.9); padding: 8px; border-radius: 6px; font-size: 8px; color: #00ffcc; border: 1px solid rgba(0,255,204,0.3); height: 130px; overflow-y: auto; margin-top: 6px; font-family: 'Courier New', monospace;">
+                    [Subaru IA v2.5]: Esperando orden de auditoría externa...
                 </div>
             </div>
 
-            <!-- Zona donde aparecerán los módulos funcionales inyectados -->
+            <!-- Zona de Propuestas Pendientes de Aprobación -->
+            <div id="propuestas-zone"></div>
+
+            <!-- Zona de Módulos Activos en la Plataforma -->
             <div id="dinamic-modules-zone"></div>
         </div>
     </div>
@@ -264,61 +230,87 @@
         }
         drawParticles();
 
-        const feedLive = [
-            "Escaneando APIs de Kick, TikTok Studio y Discord...",
-            "Analizando pasarelas de Botrix, OBS y Marcos Overlays...",
-            "Verificando flujos de YouTube, Facebook, Instagram y Mercado Pago..."
-        ];
+        let auditoriaPaso = 0;
 
-        function iniciarRadarAutonomo() {
-            let radarLog = document.getElementById('radar-status');
-            let index = 0;
-            setInterval(() => {
-                if(radarLog) {
-                    radarLog.innerHTML = `[Live Sync]: ${feedLive[index]} <span class="live-indicator">● EN VIVO</span>`;
-                    index = (index + 1) % feedLive.length;
-                }
-            }, 3500);
-        }
-        window.onload = iniciarRadarAutonomo;
-
-        let modulosInyectadosContador = 0;
-
-        function ejecutarAuditoriaYActualizacionReal() {
+        function ejecutarAuditoriaExterna() {
             let log = document.getElementById('consola-log');
-            let zonaModulos = document.getElementById('dinamic-modules-zone');
-            
-            log.innerHTML += `<br><span style="color:#00ffcc;">[Bot Live]:</span> Analizando carencias en Kick, TikTok, OBS y Botrix...`;
+            let propuestas = document.getElementById('propuestas-zone');
+
+            log.innerHTML += `<br><span style="color:#00ffcc;">[Auditoría]:</span> Escaneando APIs de Kick, TikTok y Botrix en busca de nuevas funciones...`;
             log.scrollTop = log.scrollHeight;
 
             setTimeout(() => {
-                modulosInyectadosContador++;
-                
-                if(modulosInyectadosContador === 1) {
-                    log.innerHTML += `<br><span style="color:#ff00ff;">[Hallazgo]:</span> Falta el widget de "Chat Unificado en Vivo". Inyectando componente...`;
+                auditoriaPaso++;
+                if(auditoriaPaso === 1) {
+                    log.innerHTML += `<br><span style="color:#ff00ff;">[Notificación]:</span> ¡Nueva función detectada! Widget de "Chat Unificado Cross-Platform".`;
                     log.scrollTop = log.scrollHeight;
-                    
-                    zonaModulos.innerHTML += `
-                        <div class="panel" style="border-color: #ff00ff; margin-top: 10px;">
-                            <h3 style="color: #ff00ff;">💬 Widget Inyectado: Chat Unificado (Kick & TikTok)</h3>
-                            <div style="background: rgba(0,0,0,0.8); padding: 8px; border-radius: 6px; font-size: 8px; font-family: 'Courier New', monospace; height: 60px; overflow-y: auto;">
-                                <span style="color:#00ffcc;">[Kick - SubaruNoobs]:</span> ¡Hola chat, bienvenidos al stream! ✨<br>
-                                <span style="color:#ff00ff;">[TikTok - Viewer99]:</span> ¡Tremenda plataforma Comandante!<br>
+
+                    propuestas.innerHTML = `
+                        <div class="panel" id="propuesta-1" style="border-color: #ff00ff; background: rgba(20, 5, 25, 0.9);">
+                            <h3 style="color: #ff00ff;">⚡ Propuesta Pendiente #1: Chat Unificado</h3>
+                            <p style="font-size: 9px; color: #fff; margin-bottom: 8px;">El bot detectó sincronización de chat en vivo para Kick y TikTok. ¿Deseas aplicarla en tu plataforma?</p>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                                <button class="cyber-btn" style="background: #00ffcc; color:#000;" onclick="aceptarFuncion(1)">✅ Aceptar & Aplicar</button>
+                                <button class="cyber-btn" style="background: #ff0055; color:#fff;" onclick="rechazarFuncion(1)">❌ Rechazar</button>
                             </div>
                         </div>
                     `;
                 } else {
-                    log.innerHTML += `<br><span style="color:#ff00ff;">[Hallazgo]:</span> Falta la herramienta "Control de Alertas de Donación QR". Inyectando...`;
+                    log.innerHTML += `<br><span style="color:#ff00ff;">[Notificación]:</span> ¡Nueva función detectada! Módulo "Alertas de Donación QR".`;
                     log.scrollTop = log.scrollHeight;
-                    
-                    zonaModulos.innerHTML += `
-                        <div class="panel" style="border-color: #00ffcc; margin-top: 10px;">
-                            <h3 style="color: #00ffcc;">⚡ Widget Inyectado: Alertas Mercado Pago QR</h3>
-                            <p style="font-size: 8px; color: #fff;">Estado: Escaneando transacciones entrantes en tiempo real.</p>
+
+                    propuestas.innerHTML = `
+                        <div class="panel" id="propuesta-2" style="border-color: #ff00ff; background: rgba(20, 5, 25, 0.9);">
+                            <h3 style="color: #ff00ff;">⚡ Propuesta Pendiente #2: Alertas QR Mercado Pago</h3>
+                            <p style="font-size: 9px; color: #fff; margin-bottom: 8px;">El bot detectó pasarela de pagos QR en tiempo real. ¿Deseas aplicarla en tu plataforma?</p>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                                <button class="cyber-btn" style="background: #00ffcc; color:#000;" onclick="aceptarFuncion(2)">✅ Aceptar & Aplicar</button>
+                                <button class="cyber-btn" style="background: #ff0055; color:#fff;" onclick="rechazarFuncion(2)">❌ Rechazar</button>
+                            </div>
                         </div>
                     `;
                 }
-            }, 800);
+            }, 900);
+        }
+
+        function aceptarFuncion(id) {
+            let propuestas = document.getElementById('propuestas-zone');
+            let zonaModulos = document.getElementById('dinamic-modules-zone');
+            let log = document.getElementById('consola-log');
+
+            propuestas.innerHTML = ""; // Limpiar tarjeta de propuesta
+
+            if(id === 1) {
+                log.innerHTML += `<br><span style="color:#00ffcc;">[Sistema]:</span> ¡Función #1 aceptada por Ángel! Inyectando widget en la plataforma...`;
+                log.scrollTop = log.scrollHeight;
+
+                zonaModulos.innerHTML += `
+                    <div class="panel" style="border-color: #00ffcc; margin-top: 10px;">
+                        <h3 style="color: #00ffcc;">💬 Módulo Activo: Chat Unificado (Kick & TikTok)</h3>
+                        <div style="background: rgba(0,0,0,0.8); padding: 8px; border-radius: 6px; font-size: 8px; font-family: 'Courier New', monospace; height: 60px; overflow-y: auto;">
+                            <span style="color:#00ffcc;">[Kick - SubaruNoobs]:</span> ¡Conexión aceptada por el Comandante! 🚀<br>
+                            <span style="color:#ff00ff;">[TikTok - Viewer99]:</span> ¡Chat operativo en tiempo real!<br>
+                        </div>
+                    </div>
+                `;
+            } else {
+                log.innerHTML += `<br><span style="color:#00ffcc;">[Sistema]:</span> ¡Función #2 aceptada por Ángel! Inyectando panel de pagos...`;
+                log.scrollTop = log.scrollHeight;
+
+                zonaModulos.innerHTML += `
+                    <div class="panel" style="border-color: #00ffcc; margin-top: 10px;">
+                        <h3 style="color: #00ffcc;">⚡ Módulo Activo: Alertas Mercado Pago QR</h3>
+                        <p style="font-size: 8px; color: #fff;">Estado: Escaneo de cobros QR activo y operando.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function rechazarFuncion(id) {
+            document.getElementById('propuestas-zone').innerHTML = "";
+            let log = document.getElementById('consola-log');
+            log.innerHTML += `<br><span style="color:#ff0055;">[Sistema]:</span> Propuesta #${id} rechazada por el administrador.`;
+            log.scrollTop = log.scrollHeight;
         }
 
         function emitirPrestamoLegal() {
@@ -330,22 +322,8 @@
             document.getElementById('monto-prestamo').value = "";
         }
 
-        function procesarComandoBot() {
-            let input = document.getElementById('orden-usuario');
-            let texto = input.value.trim();
-            let log = document.getElementById('consola-log');
-            if (!texto) return;
-            log.innerHTML += `<br><span style="color:#ff00ff;">[Ángel]:</span> ${texto}`;
-            log.scrollTop = log.scrollHeight;
-            setTimeout(() => {
-                log.innerHTML += `<br><span style="color:#00ffcc;">[Subaru IA]:</span> Comando procesado exitosamente en el núcleo.`;
-                log.scrollTop = log.scrollHeight;
-                input.value = "";
-            }, 400);
-        }
-
         function limpiarConsola() {
-            document.getElementById('consola-log').innerHTML = `[Live Core v2.0]: Consola limpia. Monitoreo activo...`;
+            document.getElementById('consola-log').innerHTML = `[Subaru IA v2.5]: Consola limpia. Monitoreo activo...`;
         }
     </script>
 </body>
